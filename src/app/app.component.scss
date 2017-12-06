@@ -1,0 +1,17 @@
+.app-root {
+  .app-header {
+    background: #3F51B5;
+    height: 50px;
+    mat-icon {
+      color: white;
+    }
+    .navigation-buttons {
+      width: calc(100% - 50px);
+      button {
+        color: white;
+        font-weight: 600;
+      }
+    }
+  }
+
+}
