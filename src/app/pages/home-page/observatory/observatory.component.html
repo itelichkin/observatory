@@ -1,3 +1,21 @@
-<p>
-  observatory works!
-</p>
+<section class="app-observatory">
+  <mat-sidenav-container *ngIf="!isDataLoading">
+    <mat-sidenav #sidenav mode="over">
+      <h3>Information about <span class="selected-object-name">{{selectedGalaxy ? selectedGalaxy.name : universe.getName}}</span>
+      </h3>
+      <button mat-icon-button class="toggle-left-navbar hide-left-navbar" (click)="sidenav.toggle()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <button mat-icon-button class="toggle-left-navbar show-left-navbar" (click)="sidenav.toggle()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+
+      <div class="galaxy" *ngFor="let galaxy of universe.spaceGalaxies" [ngStyle]="{'top': galaxy.positionY + 'px', 'left': galaxy.positionX + 'px'}" >
+        <img src="assets/galaxy-view.svg" alt="{{galaxy}}">
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</section>

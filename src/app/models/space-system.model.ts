@@ -1,25 +1,29 @@
 import {SpaceAdapter} from '../adapters/space.adapter';
 import {Star} from './star.model';
+import {AstronomicalObject} from './astronomical-object.model';
 
-export class SpaceSystem {
-  spaceSystemName: string;
+export class SpaceSystemModel extends AstronomicalObject {
+  protected _parentGalaxy: AstronomicalObject;
+  protected _spacePlanets: Array<any>;
 
-  constructor() {
-
+  constructor(id: number, name: string, weight: number, speed: number, discoverer: string,
+              positionX: number, positionY: number, parentGalaxy) {
+    super(id, name, weight, speed, discoverer, positionX, positionY);
+    this._parentGalaxy = parentGalaxy;
   }
 
-  createSystem() {
-
-
+  get parentGalaxy() {
+    return this._parentGalaxy;
   }
 
-  newStar(options: {
-    id: number, name: string, weight: number, diameter: number, acceleration: number,
-    speed: number, discoverer: string, isStar: boolean, rings: number
-  }) {
-    const newStar = new Star(options.id, options.name, options.weight, options.diameter, options.acceleration,
-      options.speed, options.discoverer, options.isStar, options.rings);
-    return newStar;
+  get spacePlanets() {
+    return this._spacePlanets;
+  }
+
+  addSpacePlanet(planet) {
+    const newPlanet = planet;
+    this._spacePlanets.push(newPlanet);
+
   }
 
 

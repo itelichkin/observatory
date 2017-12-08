@@ -11,9 +11,10 @@ export class Planet<T> extends AstronomicalObject {
   protected _isStar: boolean;
   protected rings: number;
 
-  constructor(id: number, name: string, weight: number, diameter: number, acceleration: number, speed: number,
-              discoverer: string, isStar: boolean, rings: number) {
-    super(id, name, weight, diameter, acceleration, speed, discoverer);
+  constructor(id: number, name: string, weight: number, speed: number,
+              discoverer: string, positionX: number,
+              positionY: number, isStar: boolean, rings: number) {
+    super(id, name, weight, speed, discoverer, positionX, positionY);
     this._isStar = isStar;
     this.rings = rings;
   }

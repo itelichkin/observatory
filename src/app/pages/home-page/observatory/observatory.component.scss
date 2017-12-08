@@ -1,0 +1,54 @@
+.app-observatory {
+  background: url(../../../../assets/universe-background.png) no-repeat fixed;
+  height: calc(100vh - 50px);
+  overflow: auto;
+  background-size: cover;
+  opacity: 0.7;
+  mat-sidenav-container {
+    background: transparent;
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    mat-sidenav {
+      width: 20%;
+      overflow: auto;
+      h3 {
+        span.selected-object-name {
+          font-weight: 600;
+        }
+      }
+      .hide-left-navbar {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+  mat-sidenav-content {
+    .show-left-navbar {
+
+    }
+    .galaxy {
+      position: absolute;
+
+      img {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  }
+  .toggle-left-navbar {
+    background: white;
+    border-radius: 0;
+    height: 50px;
+    width: 25px;
+    mat-icon {
+      font-weight: 600;
+      color: #616161;
+    }
+  }
+}

@@ -9,9 +9,10 @@ export interface StarAdapter<T> {
 export class Star<T> extends Planet<T> {
   protected _childrenPlanets: Array<Planet<T>>;
 
-  constructor(id: number, name: string, weight: number, diameter: number, acceleration: number, speed: number,
-              discoverer: string, isStar: boolean, rings: number) {
-    super(id, name, weight, diameter, acceleration, speed, discoverer, isStar, rings);
+  constructor(id: number, name: string, weight: number, speed: number,
+              discoverer: string, isStar: boolean, rings: number, positionX: number,
+              positionY: number) {
+    super(id, name, weight, speed, discoverer, positionX, positionY, isStar, rings);
   }
 
   get childrenPlanets() {
