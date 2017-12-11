@@ -25,11 +25,14 @@ export class GalaxyComponent implements OnInit {
         this.galaxyId = +param['id'];
       }
     });
-    this.selectedGalaxy = app.selectedGalaxy;
   }
 
   async ngOnInit() {
     this.isDataLoading = true;
+    if (!this.selectedGalaxy) {
+      await this.app.reStoreGalaxy(this.galaxyId);
+    }
+    this.selectedGalaxy = this.app.selectedGalaxy;
     const spaceSystems = await this.apiService.getSpaceSystems(this.galaxyId);
     spaceSystems.forEach((system) => {
       this.selectedGalaxy.addSpaceSystems(system);

@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {UniverseModel} from './models/universe.model';
 import {GalaxyModel} from './models/galaxy.model';
 import {SpaceSystemModel} from './models/space-system.model';
+import {ApiService} from './services/api.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent {
   private _selectedGalaxy: GalaxyModel;
   private _selectedSystem: SpaceSystemModel;
 
-  constructor() {
+  constructor(private apiService: ApiService) {
   }
 
   get universe() {
@@ -39,6 +40,20 @@ export class AppComponent {
 
   set selectedSystem(value) {
     this._selectedSystem = value;
+  }
+
+  async reStoreGalaxy(galaxyId: number) {
+    const universe = await this.apiService.getUniverse();
+    this.universe = new UniverseModel(universe.id, universe.name, universe.weight, universe.speed, universe.discoverer, null);
+    const galaxies = await this.apiService.getGalaxies();
+    galaxies.forEach((galaxy) => {
+      this.universe.addGalaxy(galaxy);
+    });
+    this.universe.spaceGalaxies.forEach((galaxy) => {
+      if (galaxy.id === galaxyId) {
+        this.selectedGalaxy = galaxy;
+      }
+    });
   }
 
 }
