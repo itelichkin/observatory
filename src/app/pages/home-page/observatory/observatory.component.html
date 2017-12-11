@@ -1,21 +1,29 @@
 <section class="app-observatory">
-  <mat-sidenav-container *ngIf="!isDataLoading">
-    <mat-sidenav #sidenav mode="over">
-      <h3>Information about <span class="selected-object-name">{{selectedGalaxy ? selectedGalaxy.name : universe.getName}}</span>
-      </h3>
-      <button mat-icon-button class="toggle-left-navbar hide-left-navbar" (click)="sidenav.toggle()">
-        <mat-icon>chevron_left</mat-icon>
-      </button>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <button mat-icon-button class="toggle-left-navbar show-left-navbar" (click)="sidenav.toggle()">
-        <mat-icon>chevron_right</mat-icon>
-      </button>
 
-      <div class="galaxy" *ngFor="let galaxy of universe.spaceGalaxies" [ngStyle]="{'top': galaxy.positionY + 'px', 'left': galaxy.positionX + 'px'}" >
-        <img src="assets/galaxy-view.svg" alt="{{galaxy}}">
+  <mat-drawer-container *ngIf="!isDataLoading" autosize>
+    <mat-drawer #drawer mode="side">
+      <h3>Information about: </h3>
+      <h3 class="selected-object-name">{{selectedGalaxy ? selectedGalaxy.name : universe.name}}</h3>
+
+      <div class="action-button-container">
+        <button mat-icon-button class="observatory-go-to-galaxy" matTooltip="Go to {{selectedGalaxy.name}}" *ngIf="selectedGalaxy" (click)="goToGalaxy()">
+          <mat-icon>info</mat-icon>
+        </button>
       </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+
+    </mat-drawer>
+
+    <div class="observatory-sidenav-content">
+      <button mat-icon-button class="toggle-left-navbar show-left-navbar" (click)="drawer.toggle()">
+        <mat-icon>{{drawer.opened ? 'chevron_left' : 'chevron_right'}}</mat-icon>
+      </button>
+      <div class="universe-container" (click)="selectGalaxy(null)"></div>
+      <div class="galaxy" *ngFor="let galaxy of universe.spaceGalaxies" matTooltip="{{galaxy.name}}"
+           [ngStyle]="{'top': galaxy.position.y + 'px', 'left': galaxy.position.x + 'px'}" (click)="selectGalaxy(galaxy); drawer.open()">
+        <img src="assets/galaxy-view.svg" alt="{{galaxy.name}}">
+      </div>
+    </div>
+
+  </mat-drawer-container>
 
 </section>

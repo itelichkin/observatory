@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import {ObservatoryMaterialModule} from './modules/material/observatory-material.module';
@@ -15,6 +16,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
 import {CommonModule} from '@angular/common';
+import { GalaxyComponent } from './pages/home-page/observatory/galaxy/galaxy.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import {CommonModule} from '@angular/common';
     PageNotFoundComponent,
     PageDefaultComponent,
     ObservatoryComponent,
-    NewSpaceObjectComponent
+    NewSpaceObjectComponent,
+    GalaxyComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +39,7 @@ import {CommonModule} from '@angular/common';
     AppRoutingModule,
     ObservatoryMaterialModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

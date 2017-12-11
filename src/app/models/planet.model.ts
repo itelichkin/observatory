@@ -1,22 +1,17 @@
 import {AstronomicalObject} from './astronomical-object.model';
 import {Star} from './star.model';
 
-export interface PlanetAdapter<T> {
-  getParentStar(planet: Planet<T>): Promise<Star<T>>;
-}
-
 export class Planet<T> extends AstronomicalObject {
-  protected _satellites: Array<AstronomicalObject>;
-  protected _parentStar: Star<T>;
-  protected _isStar: boolean;
-  protected rings: number;
+  private _satellites: Array<AstronomicalObject>;
+  private _parentStar: Star<T>;
+  private _isStar: boolean;
+  private _rings: number;
 
   constructor(id: number, name: string, weight: number, speed: number,
-              discoverer: string, positionX: number,
-              positionY: number, isStar: boolean, rings: number) {
-    super(id, name, weight, speed, discoverer, positionX, positionY);
+              discoverer: string, position: { x: number, y: number }, isStar: boolean, rings: number) {
+    super(id, name, weight, speed, discoverer, position);
     this._isStar = isStar;
-    this.rings = rings;
+    this._rings = rings;
   }
 
   addSatellite(candidate: AstronomicalObject) {
@@ -25,15 +20,20 @@ export class Planet<T> extends AstronomicalObject {
     }
   }
 
-  get isStar() {
-    return this._isStar;
+  get satellites() {
+    return this._satellites;
   }
 
   get parentStar() {
     return this._parentStar;
   }
 
-  get satellites() {
-    return this._satellites;
+  get isStar() {
+    return this._isStar;
   }
+
+  get rings() {
+    return this._rings;
+  }
+
 }

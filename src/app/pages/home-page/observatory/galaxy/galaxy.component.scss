@@ -1,5 +1,5 @@
-.app-observatory {
-  background: url(../../../../assets/universe-background.png) no-repeat fixed;
+.app-galaxy {
+  background: url(../../../../../assets/universe-background.png) no-repeat fixed;
   height: calc(100vh - 50px);
   overflow: auto;
   background-size: cover;
@@ -17,14 +17,13 @@
       .action-button-container {
         width: 100%;
         text-align: center;
-        .observatory-go-to-galaxy {
+        .galaxy-go-to-system {
           color: #3F51B5;
         }
       }
-
     }
   }
-  .observatory-sidenav-content {
+  .galaxy-sidenav-content {
     display: flex;
     height: 100%;
     align-items: center;
@@ -45,7 +44,7 @@
         color: #616161;
       }
     }
-    .universe-container {
+    .galaxy-container {
       position: absolute;
       top: 0;
       left: 0;
@@ -53,7 +52,7 @@
       height: 100%;
       z-index: 1;
     }
-    .galaxy {
+    .system {
       position: absolute;
       width: 100px;
       height: 100px;

@@ -1,16 +1,16 @@
 <section class="app-root">
   <div fxLayout="row" fxLayoutAlign="space-between center" class="app-header">
     <div class="home-button" fxFlex="50px">
-      <button mat-icon-button (click)="goTo('/home')">
+      <button mat-icon-button routerLink="/home" >
         <mat-icon>home</mat-icon>
       </button>
 
     </div>
     <div class="navigation-buttons" fxLayout="row" fxLayoutAlign="flex-start">
-      <button mat-button (click)="goTo('/observatory')" routerLinkActive="active">
+      <button mat-button routerLink="/observatory" routerLinkActive="active">
         OBSERVATORY
       </button>
-      <button mat-button (click)="goTo('/new-space-object')" routerLinkActive="active">
+      <button mat-button routerLink="/new-space-object" routerLinkActive="active">
         ADD NEW SPACE OBJECT
       </button>
     </div>

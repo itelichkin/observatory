@@ -4,8 +4,10 @@ export interface AstronomicalObjectType {
   weight: number;
   speed: number;
   discoverer: string;
-  positionX: number;
-  positionY: number;
+  position: {
+    x: number,
+    y: number
+  };
 }
 
 

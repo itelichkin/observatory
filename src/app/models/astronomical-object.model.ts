@@ -1,45 +1,49 @@
 export class AstronomicalObject {
-  protected _id: number;
-  protected _name: string;
-  protected _weight: number;
-  protected _speed: number;
-  protected _discoverer: string;
-  protected _positionX: number;
-  protected _positionY: number;
+  private _id: number;
+  private _name: string;
+  private _weight: number;
+  private _speed: number;
+  private _discoverer: string;
+  private _position: { x: number, y: number };
 
-  constructor(id: number, name: string, weight: number, speed: number, discoverer: string, positionX: number,
-              positionY: number) {
+
+  constructor(id: number, name: string, weight: number, speed: number, discoverer: string,
+              position: { x: number, y: number }) {
     this._id = id;
     this._name = name;
     this._weight = weight;
     this._speed = speed;
     this._discoverer = discoverer;
-    this._positionX = positionX;
-    this._positionY = positionY;
-
+    this._position = position;
   }
 
-  get getName(): string {
+  get id() {
+    return this._id;
+  }
+
+  get name() {
     return this._name;
   }
 
-  get getWeight(): number {
+  get weight() {
     return this._weight;
   }
 
-  get getSpeed(): number {
+  get speed() {
     return this._speed;
   }
 
-  get getDiscoverer(): string {
+  get discoverer() {
     return this._discoverer;
   }
 
-  get positionX(): number {
-    return this._positionX;
+  get position() {
+    return this._position;
   }
 
-  get positionY(): number {
-    return this._positionY;
+  set position(value: { x: number, y: number }) {
+    this._position = value;
   }
+
+
 }

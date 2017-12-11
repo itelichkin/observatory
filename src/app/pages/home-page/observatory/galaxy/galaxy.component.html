@@ -1,0 +1,28 @@
+<section class="app-galaxy">
+  <mat-drawer-container *ngIf="!isDataLoading" autosize>
+    <mat-drawer #drawer mode="side">
+      <h3>Information about: </h3>
+      <h3 class="selected-object-name">{{selectedSystem ? selectedSystem.name : selectedGalaxy.name}}</h3>
+
+      <div class="action-button-container">
+        <button mat-icon-button class="galaxy-go-to-galaxy" matTooltip="Go to {{selectedSystem.name}}" *ngIf="selectedSystem" (click)="goToSystem()">
+          <mat-icon>info</mat-icon>
+        </button>
+      </div>
+
+    </mat-drawer>
+
+    <div class="galaxy-sidenav-content">
+      <button mat-icon-button class="toggle-left-navbar show-left-navbar" (click)="drawer.toggle()">
+        <mat-icon>{{drawer.opened ? 'chevron_left' : 'chevron_right'}}</mat-icon>
+      </button>
+      <div class="galaxy-container" (click)="selectGalaxy(null)"></div>
+      <div class="system" *ngFor="let systems of selectedGalaxy.spaceSystems"
+           [ngStyle]="{'top': systems.position.y + 'px', 'left': systems.position.x + 'px'}" (click)="selectSystem(systems); drawer.open()">
+        <img src="assets/galaxy-view.svg" alt="{{systems.name}}">
+      </div>
+    </div>
+
+  </mat-drawer-container>
+
+</section>
