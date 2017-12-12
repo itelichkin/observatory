@@ -8,6 +8,15 @@ export interface AstronomicalObjectType {
     x: number,
     y: number
   };
+  isUniverse?: boolean;
+  isGalaxy?: boolean;
+  isSystem?: boolean;
+  isStar?: boolean;
+  isPlanet?: boolean;
+  isSatellite?: boolean;
+  galaxyId?: number;
+  systemId?: number;
+  imageName?: string;
 }
 
 

@@ -56,4 +56,11 @@ export class AppComponent {
     });
   }
 
+  async reStoreSystem(systemId: number) {
+    const system = await this.apiService.getSystemById(systemId);
+    await this.reStoreGalaxy(system.galaxyId);
+    this.selectedSystem = new SpaceSystemModel(system.id, system.name, system.weight, system.speed, system.discoverer,
+      system.position, this.selectedGalaxy);
+  }
+
 }

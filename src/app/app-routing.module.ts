@@ -7,12 +7,30 @@ import {PageDefaultComponent} from './pages/page-default/page-default.component'
 import {ObservatoryComponent} from './pages/home-page/observatory/observatory.component';
 import {NewSpaceObjectComponent} from './pages/home-page/new-space-object/new-space-object.component';
 import {GalaxyComponent} from './pages/home-page/observatory/galaxy/galaxy.component';
+import {SpaceSystemComponent} from './pages/home-page/observatory/galaxy/space-system/space-system.component';
 
 export const routes: Routes = [
     {path: '', component: PageDefaultComponent},
     {path: 'home', component: HomePageComponent},
+    /*  {
+        path: 'observatory',
+        component: ObservatoryComponent,
+        children: [
+          {
+            path: 'galaxy/:id',
+            component: GalaxyComponent,
+            children: [
+              {
+                path: 'system/:id',
+                component: SpaceSystemComponent
+              }
+            ]
+          },
+        ]
+      },*/
     {path: 'observatory', component: ObservatoryComponent},
-    {path: 'observatory/:id', component: GalaxyComponent},
+    {path: 'observatory/galaxy/:id', component: GalaxyComponent},
+    {path: 'observatory/galaxy/:id/system/:id', component: SpaceSystemComponent},
     {path: 'new-space-object', component: NewSpaceObjectComponent},
     {path: '**', component: PageNotFoundComponent}
   ]

@@ -5,34 +5,19 @@ import {SpaceSystemModel} from '../models/space-system.model';
 
 @Injectable()
 export class ApiService {
-  spaceSystems = [
+  globalAstronomicalObjects: AstronomicalObjectType[] = [
     {
-      id: 5,
-      name: 'Solar System',
-      weight: 1.0014,
-      speed: 250,
-      discoverer: null,
-      galaxyId: 2,
-      position: {
-        x: null,
-        y: null
-      }
-    },
-    {
-      id: 6,
-      name: 'TEST System',
+      id: 1,
+      name: 'Universe',
       weight: null,
       speed: null,
       discoverer: null,
-      galaxyId: 0,
       position: {
         x: null,
         y: null
-      }
-    }
-  ];
-
-  spaceGalaxies = [
+      },
+      isUniverse: true,
+    },
     {
       id: 2,
       name: 'Milky Way',
@@ -42,7 +27,8 @@ export class ApiService {
       position: {
         x: this.setPositionX(),
         y: this.setPositionY()
-      }
+      },
+      isGalaxy: true
     },
     {
       id: 3,
@@ -53,7 +39,8 @@ export class ApiService {
       position: {
         x: this.setPositionX(),
         y: this.setPositionY()
-      }
+      },
+      isGalaxy: true
     },
     {
       id: 4,
@@ -64,7 +51,63 @@ export class ApiService {
       position: {
         x: this.setPositionX(),
         y: this.setPositionY()
-      }
+      },
+      isGalaxy: true
+    },
+    {
+      id: 5,
+      name: 'Solar System',
+      weight: 1.0014,
+      speed: 250,
+      discoverer: null,
+      galaxyId: 2,
+      position: {
+        x: this.setPositionX(),
+        y: this.setPositionY()
+      },
+      isSystem: true,
+      imageName: 'solar-star'
+    },
+    {
+      id: 6,
+      name: 'Betelgeuse',
+      weight: 15,
+      speed: 22,
+      discoverer: null,
+      galaxyId: 2,
+      position: {
+        x: this.setPositionX(),
+        y: this.setPositionY()
+      },
+      isSystem: true,
+      imageName: 'orange-star'
+    },
+    {
+      id: 7,
+      name: 'Antares',
+      weight: 1.24,
+      speed: 3.4,
+      discoverer: 'Johann Tobias Bürg',
+      galaxyId: 2,
+      position: {
+        x: this.setPositionX(),
+        y: this.setPositionY()
+      },
+      isSystem: true,
+      imageName: 'yellow-star'
+    }, {
+      id: 7,
+      name: 'Kefron',
+      weight: 2.3,
+      speed: 26,
+      discoverer: null,
+      galaxyId: 2,
+      position: {
+        x: this.setPositionX(),
+        y: this.setPositionY()
+      },
+      isSystem: true,
+      imageName: 'blue-star'
     }
   ];
 
@@ -72,21 +115,12 @@ export class ApiService {
   }
 
   async getUniverse(): Promise<AstronomicalObjectType> {
-    return {
-      id: 1,
-      name: 'Universe',
-      weight: null,
-      speed: null,
-      discoverer: null,
-      position: {
-        x: null,
-        y: null
-      }
-    };
+    return this._getUniverse();
   }
 
+
   async getGalaxies(): Promise<Array<AstronomicalObjectType>> {
-    return this.spaceGalaxies;
+    return this._getGalaxies();
   }
 
   async getGalaxyById(galaxyId: number): Promise<GalaxyModel> {
@@ -95,6 +129,14 @@ export class ApiService {
 
   async getSpaceSystems(galaxyId: number): Promise<SpaceSystemModel[]> {
     return this.getGalaxySpaceSystems(galaxyId);
+  }
+
+  async getSystemById(systemId: number): Promise<any> {
+    return await this._getSystemById(systemId);
+  }
+
+  async getSpacePlanets(systemId: number): Promise<any> {
+    return await this._getSpacePlanets(systemId);
   }
 
   async getParentStar(): Promise<any> {
@@ -107,22 +149,64 @@ export class ApiService {
 
   private getGalaxySpaceSystems(galaxyId: number) {
     const _system = [];
-    this.spaceSystems.forEach((system) => {
-      if (system.galaxyId === galaxyId) {
-        _system.push(system);
+    this.globalAstronomicalObjects.forEach((obj) => {
+      if (obj.isSystem && obj.galaxyId === galaxyId) {
+        _system.push(obj);
       }
     });
     return _system;
   }
 
-  private _getGalaxyById(galaxyId: number) {
-    let _galaxy;
-    this.spaceGalaxies.forEach((galaxy) => {
-      if (galaxy.id === galaxyId) {
-        _galaxy = galaxy;
+  private async _getUniverse() {
+    let universe;
+    this.globalAstronomicalObjects.forEach((obj) => {
+      if (obj.isUniverse) {
+        universe = obj;
       }
     });
-    return _galaxy;
+    return universe;
+  }
+
+  private async _getGalaxies() {
+    const galaxies = [];
+    this.globalAstronomicalObjects.forEach((obj) => {
+      if (obj.isGalaxy) {
+        galaxies.push(obj);
+      }
+    });
+    return galaxies;
+  }
+
+  private _getGalaxyById(galaxyId: number) {
+    let galaxy;
+    this.globalAstronomicalObjects.some((obj) => {
+      if (obj.isGalaxy && obj.id === galaxyId) {
+        galaxy = obj;
+        return true;
+      }
+    });
+    return galaxy;
+  }
+
+  private _getSystemById(systemId: number) {
+    let system;
+    this.globalAstronomicalObjects.some((obj) => {
+      if (obj.isSystem && obj.id === systemId) {
+        system = obj;
+        return true;
+      }
+    });
+    return system;
+  }
+
+  private _getSpacePlanets(systemId: number) {
+    const planets = [];
+    this.globalAstronomicalObjects.forEach((obj) => {
+      if (obj.isPlanet && obj.systemId === systemId) {
+        planets.push(obj);
+      }
+    });
+    return planets;
   }
 
   private setPositionX() {

@@ -17,6 +17,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
 import {CommonModule} from '@angular/common';
 import { GalaxyComponent } from './pages/home-page/observatory/galaxy/galaxy.component';
+import { SpaceSystemComponent } from './pages/home-page/observatory/galaxy/space-system/space-system.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { GalaxyComponent } from './pages/home-page/observatory/galaxy/galaxy.com
     PageDefaultComponent,
     ObservatoryComponent,
     NewSpaceObjectComponent,
-    GalaxyComponent
+    GalaxyComponent,
+    SpaceSystemComponent
   ],
   imports: [
     CommonModule,

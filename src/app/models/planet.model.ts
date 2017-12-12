@@ -1,9 +1,9 @@
 import {AstronomicalObject} from './astronomical-object.model';
 import {Star} from './star.model';
 
-export class Planet<T> extends AstronomicalObject {
+export class Planet extends AstronomicalObject {
   private _satellites: Array<AstronomicalObject>;
-  private _parentStar: Star<T>;
+  private _parentStar: Star;
   private _isStar: boolean;
   private _rings: number;
 

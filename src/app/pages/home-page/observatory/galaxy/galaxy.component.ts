@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../../../services/api.service';
 import {AstronomicalObjectType} from '../../../../types/types';
 import {GalaxyModel} from '../../../../models/galaxy.model';
@@ -18,6 +18,7 @@ export class GalaxyComponent implements OnInit {
   isDataLoading: boolean;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private apiService: ApiService,
               private app: AppComponent) {
     this.route.params.subscribe((param) => {
@@ -29,10 +30,11 @@ export class GalaxyComponent implements OnInit {
 
   async ngOnInit() {
     this.isDataLoading = true;
+    this.selectedGalaxy = this.app.selectedGalaxy;
     if (!this.selectedGalaxy) {
       await this.app.reStoreGalaxy(this.galaxyId);
+      this.selectedGalaxy = this.app.selectedGalaxy;
     }
-    this.selectedGalaxy = this.app.selectedGalaxy;
     const spaceSystems = await this.apiService.getSpaceSystems(this.galaxyId);
     spaceSystems.forEach((system) => {
       this.selectedGalaxy.addSpaceSystems(system);
@@ -42,10 +44,11 @@ export class GalaxyComponent implements OnInit {
 
   selectSystem(system) {
     this.selectedSystem = system ? system : null;
+    this.app.selectedSystem = system;
   }
 
   goToSystem() {
-
+    this.router.navigate([`/observatory/galaxy/${this.selectedGalaxy.id}/system/${this.selectedSystem.id}`]);
   }
 
 }

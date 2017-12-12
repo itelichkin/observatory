@@ -5,7 +5,7 @@
       <h3 class="selected-object-name">{{selectedSystem ? selectedSystem.name : selectedGalaxy.name}}</h3>
 
       <div class="action-button-container">
-        <button mat-icon-button class="galaxy-go-to-galaxy" matTooltip="Go to {{selectedSystem.name}}" *ngIf="selectedSystem" (click)="goToSystem()">
+        <button mat-icon-button class="galaxy-go-to-system" matTooltip="Go to {{selectedSystem.name}}" *ngIf="selectedSystem" (click)="goToSystem()">
           <mat-icon>info</mat-icon>
         </button>
       </div>
@@ -16,10 +16,11 @@
       <button mat-icon-button class="toggle-left-navbar show-left-navbar" (click)="drawer.toggle()">
         <mat-icon>{{drawer.opened ? 'chevron_left' : 'chevron_right'}}</mat-icon>
       </button>
-      <div class="galaxy-container" (click)="selectGalaxy(null)"></div>
-      <div class="system" *ngFor="let systems of selectedGalaxy.spaceSystems"
-           [ngStyle]="{'top': systems.position.y + 'px', 'left': systems.position.x + 'px'}" (click)="selectSystem(systems); drawer.open()">
-        <img src="assets/galaxy-view.svg" alt="{{systems.name}}">
+      <div class="galaxy-container" (click)="selectSystem(null)"></div>
+      <div class="system" *ngFor="let system of selectedGalaxy.spaceSystems"
+           matTooltip="{{system.name}}"
+           [ngStyle]="{'top': system.position.y + 'px', 'left': system.position.x + 'px'}" (click)="selectSystem(system); drawer.open()">
+        <img src="assets/{{system.imageName}}.png" alt="{{system.name}}">
       </div>
     </div>
 
