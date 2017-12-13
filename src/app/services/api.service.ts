@@ -108,6 +108,191 @@ export class ApiService {
       },
       isSystem: true,
       imageName: 'blue-star'
+    }, {
+      id: 8,
+      name: 'Sun',
+      weight: 1,
+      speed: 2.2,
+      discoverer: null,
+      systemId: 5,
+      position: {
+        x: 700,
+        y: 580
+      },
+      size: {
+        width: 150,
+        height: 140
+      },
+      isStar: true,
+      imageName: 'sun'
+    },
+    {
+      id: 9,
+      name: 'Mercury',
+      weight: 0.000003,
+      speed: null,
+      discoverer: null,
+      systemId: 5,
+      position: {
+        x: 510,
+        y: 450
+      },
+      size: {
+        width: 30,
+        height: 30
+      },
+      isPlanet: true,
+      imageName: 'mercury',
+      parentRadius: 130,
+      angle: 90,
+      orbitSpeed: 8
+    },
+    {
+      id: 10,
+      name: 'Venus',
+      weight: 0.00004,
+      speed: null,
+      discoverer: null,
+      systemId: 5,
+      position: {
+        x: 500,
+        y: 380
+      },
+      size: {
+        width: 38,
+        height: 38
+      },
+      isPlanet: true,
+      imageName: 'venus',
+      parentRadius: 200,
+      angle: 90,
+      orbitSpeed: 7
+    },
+    {
+      id: 11,
+      name: 'Earth',
+      weight: 0.00006,
+      speed: null,
+      discoverer: null,
+      systemId: 5,
+      position: {
+        x: 495,
+        y: 305
+      },
+      size: {
+        width: 40,
+        height: 40
+      },
+      isPlanet: true,
+      imageName: 'earth',
+      parentRadius: 275,
+      angle: 90,
+      orbitSpeed: 6
+    },
+    {
+      id: 12,
+      name: 'Mars',
+      weight: 0.000006,
+      speed: null,
+      discoverer: null,
+      systemId: 5,
+      position: {
+        x: 510,
+        y: 265
+      },
+      size: {
+        width: 35,
+        height: 35
+      },
+      isPlanet: true,
+      imageName: 'mars',
+      parentRadius: 315,
+      angle: 90,
+      orbitSpeed: 5
+    },
+    {
+      id: 13,
+      name: 'Jupiter',
+      weight: 0.0019,
+      speed: null,
+      discoverer: 'Galileo Galilei',
+      systemId: 5,
+      position: {
+        x: 490,
+        y: 190
+      },
+      size: {
+        width: 70,
+        height: 70
+      },
+      isPlanet: true,
+      imageName: 'jupiter',
+      parentRadius: 390,
+      angle: 90,
+      orbitSpeed: 4
+    },
+    {
+      id: 14,
+      name: 'Saturn',
+      weight: 0.0006,
+      speed: null,
+      discoverer: 'Robert Hooke',
+      systemId: 5,
+      position: {
+        x: 455,
+        y: 120
+      },
+      size: {
+        width: 140,
+        height: 65
+      },
+      isPlanet: true,
+      imageName: 'saturn',
+      parentRadius: 460,
+      angle: 90,
+      orbitSpeed: 4.5
+    },
+    {
+      id: 15,
+      name: 'Uranus',
+      weight: 0.0008,
+      speed: null,
+      discoverer: 'William Herschel',
+      systemId: 5,
+      position: {
+        x: 500,
+        y: 65
+      },
+      size: {
+        width: 52,
+        height: 52
+      },
+      isPlanet: true,
+      imageName: 'uranus',
+      parentRadius: 545,
+      angle: 90,
+      orbitSpeed: 3
+    },
+    {
+      id: 16,
+      name: 'Neptune',
+      weight: 0.0001,
+      speed: null,
+      discoverer: 'Urbain Le Verrier',
+      systemId: 5,
+      position: {
+        x: 500,
+        y: 10
+      },
+      size: {
+        width: 50,
+        height: 50
+      },
+      isPlanet: true,
+      imageName: 'neptune',
+      parentRadius: 590,
+      angle: 90,
+      orbitSpeed: 2
     }
   ];
 
@@ -128,11 +313,15 @@ export class ApiService {
   }
 
   async getSpaceSystems(galaxyId: number): Promise<SpaceSystemModel[]> {
-    return this.getGalaxySpaceSystems(galaxyId);
+    return this._getSpaceSystems(galaxyId);
   }
 
   async getSystemById(systemId: number): Promise<any> {
     return await this._getSystemById(systemId);
+  }
+
+  async getCentralStar(systemId: number) {
+    return await this._getCentralStar(systemId);
   }
 
   async getSpacePlanets(systemId: number): Promise<any> {
@@ -145,16 +334,6 @@ export class ApiService {
 
   async getChildrenPlanet(): Promise<any> {
     return await null;
-  }
-
-  private getGalaxySpaceSystems(galaxyId: number) {
-    const _system = [];
-    this.globalAstronomicalObjects.forEach((obj) => {
-      if (obj.isSystem && obj.galaxyId === galaxyId) {
-        _system.push(obj);
-      }
-    });
-    return _system;
   }
 
   private async _getUniverse() {
@@ -188,6 +367,16 @@ export class ApiService {
     return galaxy;
   }
 
+  private _getSpaceSystems(galaxyId: number) {
+    const _system = [];
+    this.globalAstronomicalObjects.forEach((obj) => {
+      if (obj.isSystem && obj.galaxyId === galaxyId) {
+        _system.push(obj);
+      }
+    });
+    return _system;
+  }
+
   private _getSystemById(systemId: number) {
     let system;
     this.globalAstronomicalObjects.some((obj) => {
@@ -197,6 +386,17 @@ export class ApiService {
       }
     });
     return system;
+  }
+
+  private _getCentralStar(systemId: number) {
+    let star;
+    this.globalAstronomicalObjects.some((obj) => {
+      if (obj.isStar && obj.systemId === systemId) {
+        star = obj;
+        return true;
+      }
+    });
+    return star;
   }
 
   private _getSpacePlanets(systemId: number) {

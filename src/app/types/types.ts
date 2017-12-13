@@ -8,6 +8,10 @@ export interface AstronomicalObjectType {
     x: number,
     y: number
   };
+  size?: {
+    width: number,
+    height: number
+  };
   isUniverse?: boolean;
   isGalaxy?: boolean;
   isSystem?: boolean;
@@ -17,6 +21,9 @@ export interface AstronomicalObjectType {
   galaxyId?: number;
   systemId?: number;
   imageName?: string;
+  parentRadius?: number;
+  angle?: number;
+  orbitSpeed?: number;
 }
 
 

@@ -24,7 +24,7 @@ export class ObservatoryComponent implements OnInit {
   async ngOnInit() {
     this.isDataLoading = true;
     const univ: AstronomicalObjectType = await this.apiService.getUniverse();
-    this.universe = new UniverseModel(univ.id, univ.name, univ.weight, univ.speed, univ.discoverer, null);
+    this.universe = new UniverseModel(univ.id, univ.name, univ.weight, univ.speed, univ.discoverer, univ.position, univ.size);
     this.app.universe = this.universe;
     this.selectedGalaxy = null;
     const galaxies = await this.apiService.getGalaxies();

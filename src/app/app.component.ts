@@ -44,7 +44,8 @@ export class AppComponent {
 
   async reStoreGalaxy(galaxyId: number) {
     const universe = await this.apiService.getUniverse();
-    this.universe = new UniverseModel(universe.id, universe.name, universe.weight, universe.speed, universe.discoverer, null);
+    this.universe = new UniverseModel(universe.id, universe.name, universe.weight, universe.speed,
+      universe.discoverer, universe.position, universe.size);
     const galaxies = await this.apiService.getGalaxies();
     galaxies.forEach((galaxy) => {
       this.universe.addGalaxy(galaxy);
@@ -59,8 +60,8 @@ export class AppComponent {
   async reStoreSystem(systemId: number) {
     const system = await this.apiService.getSystemById(systemId);
     await this.reStoreGalaxy(system.galaxyId);
-    this.selectedSystem = new SpaceSystemModel(system.id, system.name, system.weight, system.speed, system.discoverer,
-      system.position, this.selectedGalaxy);
+    this.selectedSystem = new SpaceSystemModel(system.id, system.name, system.weight, system.speed,
+      system.discoverer, system.position, system.size, system.imageName, this.selectedGalaxy);
   }
 
 }

@@ -2,18 +2,27 @@
   <mat-drawer-container *ngIf="!isDataLoading" autosize>
     <mat-drawer #drawer mode="side">
       <h3>Information about: </h3>
-      <h3 class="selected-object-name">{{selectedPlanet ? selectedPlanet.name : selectedSystem.name}}</h3>
+      <h3 class="selected-object-name">{{selectedSpaceObject ? selectedSpaceObject.name : selectedSystem.name}}</h3>
     </mat-drawer>
 
     <div class="system-sidenav-content">
       <button mat-icon-button class="toggle-left-navbar show-left-navbar" (click)="drawer.toggle()">
         <mat-icon>{{drawer.opened ? 'chevron_left' : 'chevron_right'}}</mat-icon>
       </button>
-      <div class="system-container" (click)="selectGalaxy(null)"></div>
-    <!--  <div class="system-center-star" [ngStyle]="{'top': planet.position.y + 'px', 'left': planet.position.x + 'px'}" (click)="selectSystem(planet); drawer.open()"></div>-->
-      <div class="planet" *ngFor="let planet of selectedSystem.spacePlanets"
-           [ngStyle]="{'top': planet.position.y + 'px', 'left': planet.position.x + 'px'}" (click)="selectSystem(planet); drawer.open()">
-        <img src="assets/{{planet}}.png" alt="{{planet.name}}">
+      <div class="system-container" (click)="selectPlanet(null)"></div>
+      <div *ngIf="selectedSystem.centralStar"
+           class="system-center-star"
+           [ngStyle]="{'top': selectedSystem.centralStar.position.y + 'px', 'left': selectedSystem.centralStar.position.x + 'px', 'width': selectedSystem.centralStar.size.width + 'px', 'height': selectedSystem.centralStar.size.height + 'px'}"
+           matTooltip="{{selectedSystem.centralStar.name}}"
+           (click)="selectPlanet(selectedSystem.centralStar); drawer.open()">
+        <img src="assets/{{selectedSystem.centralStar.imageName}}.png" alt="{{selectedSystem.centralStar.name}}">
+      </div>
+      <div *ngFor="let planet of selectedSystem.centralStar?.childrenPlanets"
+           class="planet"
+           [ngStyle]="{'top': planet.position.y + 'px', 'left': planet.position.x + 'px', 'width': planet.size.width + 'px', 'height': planet.size.height + 'px'}"
+           matTooltip="{{planet.name}}"
+           (click)="selectPlanet(planet); drawer.open()">
+        <img src="assets/{{planet.imageName}}.png" alt="{{planet.name}}">
       </div>
     </div>
 

@@ -5,14 +5,14 @@ export class UniverseModel extends AstronomicalObject {
   private _spaceGalaxies: Array<any>;
 
   constructor(id: number, name: string, weight: number, speed: number, discoverer: string,
-              position: { x: number, y: number }) {
-    super(id, name, weight, speed, discoverer, position);
+              position: { x: number, y: number }, size: { width: number, height: number } ) {
+    super(id, name, weight, speed, discoverer, position, size, null);
     this._spaceGalaxies = [];
   }
 
   addGalaxy(galaxy) {
     const newGalaxy = new GalaxyModel(galaxy.id, galaxy.name, galaxy.weight, galaxy.speed, galaxy.discoverer,
-      galaxy.position, this);
+      galaxy.position, galaxy.size, this);
     this._spaceGalaxies.push(newGalaxy);
   }
 
