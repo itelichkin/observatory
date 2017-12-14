@@ -1,58 +1,53 @@
-import {AstronomicalObject} from './astronomical-object.model';
-import {Star} from './star.model';
+import {AstronomicalObjectModel} from './astronomical-object.model';
+import {StarModel} from './star.model';
+import {PlanetoidModel} from './planetoid.model';
+import {SatelliteModel} from './satellite.model';
 
-export class Planet extends AstronomicalObject {
-  private _satellites: Array<AstronomicalObject>;
-  private _parentStar: Star;
-  private _isStar: boolean;
+export class PlanetModel extends PlanetoidModel {
   private _rings: number;
   private _angle: number;
-  private _positionDefault: { x: number, y: number };
   private _orbitSpeed: number;
   private _parentRadius: number;
+  private onMove: boolean;
 
   constructor(id: number, name: string, weight: number, speed: number,
               discoverer: string, position: { x: number, y: number }, size: { width: number, height: number },
-              imageName, isStar: boolean, parentStar: Star, rings: number, parentRadius: number, angle: number, orbitSpeed: number) {
-    super(id, name, weight, speed, discoverer, position, size, imageName);
-    this._isStar = isStar;
-    this._parentStar = parentStar;
+              imageName, parentObject: any, rings: number, parentRadius: number, angle: number,
+              orbitSpeed: number) {
+    super(id, name, weight, speed, discoverer, position, size, imageName, parentObject);
     this._rings = rings;
     this._angle = angle;
     this._parentRadius = parentRadius;
     this._orbitSpeed = orbitSpeed;
-    this._positionDefault = position;
-    if (this.parentRadius) {
-      this.orbitPosition();
-    }
-
-  }
-
-  addSatellite(candidate: AstronomicalObject) {
-    if (candidate) {
-      this._satellites.push(candidate);
-    }
+    this.onMove = true;
+    this.setPosition();
+    this.orbitPosition();
   }
 
   orbitPosition() {
-    const s = this.orbitSpeed * Math.PI / 180; // Вычислим угол
-    setInterval(() => { // функция движения
-      this.angle += s; // приращение аргумента
-      this.position.x = (this.parentStar.position.x + this.parentStar.size.width / 3) + this._parentRadius * Math.sin(this.angle);
-      this.position.y = (this.parentStar.position.y + this.parentStar.size.height / 3) + this._parentRadius * Math.cos(this.angle);
+    const s = this.orbitSpeed * Math.PI / 180;
+    setInterval(() => {
+      if (this.onMove) {
+        this.angle += s;
+        this.setPosition();
+      }
     }, 50);
   }
 
-  get satellites() {
-    return this._satellites;
+  private setPosition() {
+    this.position.x = (this.parentObject.position.x + this.parentObject.size.width / 2.5) + this._parentRadius * Math.sin(this.angle);
+    this.position.y = (this.parentObject.position.y + this.parentObject.size.height / 2.5) + this._parentRadius * Math.cos(this.angle);
   }
 
-  get parentStar() {
-    return this._parentStar;
+  addSatelliteObject(satellite) {
+    this.putSatelliteObject = new SatelliteModel(satellite.id, satellite.name, satellite.weight, satellite.speed,
+      satellite.discoverer, satellite.position, satellite.size, satellite.imageName, this);
   }
 
-  get isStar() {
-    return this._isStar;
+  addAllSatelliteObjects(satellites) {
+    satellites.forEach((satellite) => {
+      this.addSatelliteObject(satellite);
+    });
   }
 
   get rings() {

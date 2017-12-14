@@ -1,7 +1,7 @@
-import {AstronomicalObject} from './astronomical-object.model';
+import {AstronomicalObjectModel} from './astronomical-object.model';
 import {GalaxyModel} from './galaxy.model';
 
-export class UniverseModel extends AstronomicalObject {
+export class UniverseModel extends AstronomicalObjectModel {
   private _spaceGalaxies: Array<any>;
 
   constructor(id: number, name: string, weight: number, speed: number, discoverer: string,

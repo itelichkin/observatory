@@ -1,4 +1,4 @@
-export class AstronomicalObject {
+export class AstronomicalObjectModel {
   private _id: number;
   private _name: string;
   private _weight: number;

@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {AstronomicalObjectType} from '../types/types';
+import {AstronomicalObjectType, PlanetoidObkectType} from '../types/types';
 import {GalaxyModel} from '../models/galaxy.model';
 import {SpaceSystemModel} from '../models/space-system.model';
 
 @Injectable()
 export class ApiService {
-  globalAstronomicalObjects: AstronomicalObjectType[] = [
+  globalAstronomicalObjects: PlanetoidObkectType[] = [
     {
       id: 1,
       name: 'Universe',
@@ -117,11 +117,11 @@ export class ApiService {
       systemId: 5,
       position: {
         x: 700,
-        y: 580
+        y: 380
       },
       size: {
-        width: 150,
-        height: 140
+        width: 105,
+        height: 100
       },
       isStar: true,
       imageName: 'sun'
@@ -138,12 +138,12 @@ export class ApiService {
         y: 450
       },
       size: {
-        width: 30,
-        height: 30
+        width: 15,
+        height: 15
       },
       isPlanet: true,
       imageName: 'mercury',
-      parentRadius: 130,
+      parentRadius: 70,
       angle: 90,
       orbitSpeed: 8
     },
@@ -159,12 +159,12 @@ export class ApiService {
         y: 380
       },
       size: {
-        width: 38,
-        height: 38
+        width: 22,
+        height: 22
       },
       isPlanet: true,
       imageName: 'venus',
-      parentRadius: 200,
+      parentRadius: 95,
       angle: 90,
       orbitSpeed: 7
     },
@@ -180,12 +180,12 @@ export class ApiService {
         y: 305
       },
       size: {
-        width: 40,
-        height: 40
+        width: 25,
+        height: 25
       },
       isPlanet: true,
       imageName: 'earth',
-      parentRadius: 275,
+      parentRadius: 130,
       angle: 90,
       orbitSpeed: 6
     },
@@ -201,12 +201,12 @@ export class ApiService {
         y: 265
       },
       size: {
-        width: 35,
-        height: 35
+        width: 20,
+        height: 20
       },
       isPlanet: true,
       imageName: 'mars',
-      parentRadius: 315,
+      parentRadius: 160,
       angle: 90,
       orbitSpeed: 5
     },
@@ -222,12 +222,12 @@ export class ApiService {
         y: 190
       },
       size: {
-        width: 70,
-        height: 70
+        width: 45,
+        height: 45
       },
       isPlanet: true,
       imageName: 'jupiter',
-      parentRadius: 390,
+      parentRadius: 200,
       angle: 90,
       orbitSpeed: 4
     },
@@ -243,12 +243,12 @@ export class ApiService {
         y: 120
       },
       size: {
-        width: 140,
-        height: 65
+        width: 90,
+        height: 40
       },
       isPlanet: true,
       imageName: 'saturn',
-      parentRadius: 460,
+      parentRadius: 260,
       angle: 90,
       orbitSpeed: 4.5
     },
@@ -264,12 +264,12 @@ export class ApiService {
         y: 65
       },
       size: {
-        width: 52,
-        height: 52
+        width: 32,
+        height: 32
       },
       isPlanet: true,
       imageName: 'uranus',
-      parentRadius: 545,
+      parentRadius: 350,
       angle: 90,
       orbitSpeed: 3
     },
@@ -285,12 +285,12 @@ export class ApiService {
         y: 10
       },
       size: {
-        width: 50,
-        height: 50
+        width: 30,
+        height: 30
       },
       isPlanet: true,
       imageName: 'neptune',
-      parentRadius: 590,
+      parentRadius: 400,
       angle: 90,
       orbitSpeed: 2
     }

@@ -1,8 +1,8 @@
-import {AstronomicalObject} from './astronomical-object.model';
+import {AstronomicalObjectModel} from './astronomical-object.model';
 import {UniverseModel} from './universe.model';
 import {SpaceSystemModel} from './space-system.model';
 
-export class GalaxyModel extends AstronomicalObject {
+export class GalaxyModel extends AstronomicalObjectModel {
   private _spaceSystems: Array<any>;
   private _parentUniverse: UniverseModel;
 

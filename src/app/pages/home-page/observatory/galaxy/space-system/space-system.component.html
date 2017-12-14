@@ -17,7 +17,7 @@
            (click)="selectPlanet(selectedSystem.centralStar); drawer.open()">
         <img src="assets/{{selectedSystem.centralStar.imageName}}.png" alt="{{selectedSystem.centralStar.name}}">
       </div>
-      <div *ngFor="let planet of selectedSystem.centralStar?.childrenPlanets"
+      <div *ngFor="let planet of selectedSystem.centralStar?.satelliteObjects"
            class="planet"
            [ngStyle]="{'top': planet.position.y + 'px', 'left': planet.position.x + 'px', 'width': planet.size.width + 'px', 'height': planet.size.height + 'px'}"
            matTooltip="{{planet.name}}"

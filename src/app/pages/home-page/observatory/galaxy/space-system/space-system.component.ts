@@ -4,7 +4,7 @@ import {GalaxyModel} from '../../../../../models/galaxy.model';
 import {SpaceSystemModel} from '../../../../../models/space-system.model';
 import {AppComponent} from '../../../../../app.component';
 import {ApiService} from '../../../../../services/api.service';
-import {Planet} from '../../../../../models/planet.model';
+import {PlanetModel} from '../../../../../models/planet.model';
 import {AstronomicalObjectType} from '../../../../../types/types';
 
 @Component({
@@ -46,9 +46,7 @@ export class SpaceSystemComponent implements OnInit {
     }
     this.selectedSystem.addCentralStar(star);
     const spacePlanets = await this.apiService.getSpacePlanets(this.systemId);
-    spacePlanets.forEach((planet) => {
-      this.selectedSystem.centralStar.addChildrenPlanet(planet);
-    });
+    this.selectedSystem.centralStar.addAllSatelliteObjects(spacePlanets);
     this.isDataLoading = false;
   }
 

@@ -1,11 +1,11 @@
-import {AstronomicalObject} from './astronomical-object.model';
-import {Star} from './star.model';
-import {Planet} from './planet.model';
+import {AstronomicalObjectModel} from './astronomical-object.model';
+import {StarModel} from './star.model';
+import {PlanetModel} from './planet.model';
 
-export class SpaceSystemModel extends AstronomicalObject {
-  private _parentGalaxy: AstronomicalObject;
+export class SpaceSystemModel extends AstronomicalObjectModel {
+  private _parentGalaxy: AstronomicalObjectModel;
   private _spacePlanets: Array<any>;
-  private _centralStar: Star;
+  private _centralStar: StarModel;
 
   constructor(id: number, name: string, weight: number, speed: number, discoverer: string,
               position: { x: number, y: number }, size: { width: number, height: number },
@@ -16,7 +16,7 @@ export class SpaceSystemModel extends AstronomicalObject {
   }
 
   addCentralStar(star) {
-    this._centralStar = new Star(star.id, star.name, star.weight, star.speed, star.discoverer,
+    this._centralStar = new StarModel(star.id, star.name, star.weight, star.speed, star.discoverer,
       star.position, star.size, star.imageName, true);
   }
 

@@ -19,12 +19,17 @@ export interface AstronomicalObjectType {
   isPlanet?: boolean;
   isSatellite?: boolean;
   galaxyId?: number;
-  systemId?: number;
   imageName?: string;
+}
+
+export interface PlanetoidObkectType extends AstronomicalObjectType {
+  systemId?: number;
   parentRadius?: number;
   angle?: number;
   orbitSpeed?: number;
 }
+
+
 
 
 
