@@ -3,7 +3,7 @@
   <mat-drawer-container *ngIf="!isDataLoading" autosize>
     <mat-drawer #drawer mode="side">
       <mat-form-field>
-        <mat-select [(value)]="selectedGalaxy"  placeholder="Select galaxy">
+        <mat-select [(value)]="selectedGalaxy" placeholder="Select galaxy">
           <mat-option>None</mat-option>
           <mat-option *ngFor="let galaxy of universe.spaceGalaxies" [value]="galaxy">
             {{ galaxy.name}}
@@ -11,23 +11,36 @@
         </mat-select>
       </mat-form-field>
       <h2 class="selected-object-name">{{selectedGalaxy ? selectedGalaxy.name : universe.name}}</h2>
-      <div class="information-about" fxLayout="column">
-        <div fxLayout="row" fxLayoutWrap="wrap">
-          <p class="title-name">Diameter</p>
-          <p class="description">{{selectedGalaxy ? '' : universe.diameter}}</p>
+      <div class="information-about-galaxy" *ngIf="selectedGalaxy" fxLayout="column">
+        <div>
+          <p class="description"><span class="title-name">Diameter: </span>{{selectedGalaxy.diameter}}</p>
         </div>
-        <div fxLayout="row" fxLayoutWrap="wrap">
-          <p class="title-name">Number of stars</p>
-          <p class="description">{{selectedGalaxy ? '' : universe.numberOfStars}}</p>
+        <div>
+          <p class="description"><span class="title-name">Number of stars: </span>{{selectedGalaxy.numberOfStars}}</p>
         </div>
-        <div fxLayout="row" fxLayoutWrap="wrap">
-          <p class="title-name">Thickness</p>
-          <p class="description">{{selectedGalaxy ? '' : universe.thickness}}</p>
+        <div>
+          <p class="description"><span class="title-name">Thickness: </span>{{selectedGalaxy.thickness}}</p>
+        </div>
+      </div>
+      <div class="information-about-universe" *ngIf="!selectedGalaxy && universe" fxLayout="column">
+        <div>
+          <p class="description"><span class="title-name">Age: </span>{{universe.age}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Number of galaxies: </span>{{universe.galaxiesAmount}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Average temperature: </span>{{universe.averageTemperature}}
+          </p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Diameter: </span>{{universe.diameter}}</p>
         </div>
       </div>
       <div class="action-button-container">
-        <button mat-icon-button class="observatory-go-to-galaxy" matTooltip="Go to {{selectedGalaxy.name}}" *ngIf="selectedGalaxy" (click)="goToGalaxy()">
-          <mat-icon>info</mat-icon>
+        <button mat-icon-button class="observatory-go-to-galaxy" matTooltip="Go to {{selectedGalaxy.name}}"
+                *ngIf="selectedGalaxy" (click)="goToGalaxy()">
+          <mat-icon>subdirectory_arrow_right</mat-icon>
         </button>
       </div>
 
@@ -39,7 +52,8 @@
       </button>
       <div class="universe-container" (click)="selectGalaxy(null)"></div>
       <div class="galaxy" *ngFor="let galaxy of universe.spaceGalaxies" matTooltip="{{galaxy.name}}"
-           [ngStyle]="{'top': galaxy.position.y + 'px', 'left': galaxy.position.x + 'px'}" (click)="selectGalaxy(galaxy); drawer.open()">
+           [ngStyle]="{'top': galaxy.position.y + 'px', 'left': galaxy.position.x + 'px'}"
+           (click)="selectGalaxy(galaxy); drawer.open()">
         <img src="assets/galaxy-view.svg" alt="{{galaxy.name}}">
       </div>
     </div>

@@ -3,7 +3,7 @@ import {UniverseModel} from './models/universe.model';
 import {GalaxyModel} from './models/galaxy.model';
 import {SpaceSystemModel} from './models/space-system.model';
 import {ApiService} from './services/api.service';
-import {AstronomicalObjectType} from './types/types';
+import {AstronomicalObjectType, UniverseObjectType} from './types/types';
 
 @Component({
   selector: 'app-root',
@@ -44,9 +44,10 @@ export class AppComponent {
   }
 
   async reStoreGalaxy(galaxyId: number) {
-    const universe: AstronomicalObjectType = await this.apiService.getUniverse();
+    const universe: UniverseObjectType = await this.apiService.getUniverse();
     this.universe = new UniverseModel(universe.id, universe.name, universe.weight,
-      universe.speed, universe.discoverer, universe.position, universe.size);
+      universe.speed, universe.discoverer, universe.position, universe.size, universe.galaxiesAmount, universe.age,
+      universe.averageTemperature, universe.diameter);
     const galaxies = await this.apiService.getGalaxies();
     galaxies.forEach((galaxy) => {
       this.universe.addGalaxy(galaxy);

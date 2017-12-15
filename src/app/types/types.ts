@@ -22,18 +22,30 @@ export interface AstronomicalObjectType {
   imageName?: string;
 }
 
-export interface GalaxyObjectType extends AstronomicalObjectType {
-  diameter?: number;
-  numberOfStars?: string;
-  thickness?: number;
+export interface UniverseObjectType extends AstronomicalObjectType {
+  galaxiesAmount?: number;
+  age?: string;
+  averageTemperature?: string;
+  diameter?: string;
 }
 
-export interface PlanetoidObjectType extends AstronomicalObjectType, GalaxyObjectType {
+export interface GalaxyObjectType extends AstronomicalObjectType {
+  diameter?: string;
+  numberOfStars?: string;
+  thickness?: string;
+}
+
+export interface PlanetoidObjectType extends AstronomicalObjectType {
   systemId?: number;
   parentRadius?: number;
   angle?: number;
   orbitSpeed?: number;
 }
+
+export interface GlobalAstronomicalObjectType extends PlanetoidObjectType, GalaxyObjectType, UniverseObjectType {
+
+}
+
 
 
 

@@ -20,14 +20,18 @@
         text-align: center;
         text-transform: uppercase;
       }
-      .information-about {
+      .information-about-galaxy, .information-about-universe {
         div {
-          p.title-name {
-            font-weight: 600;
-            text-transform: uppercase;
-          }
-          p.description {
+          padding: 10px 0;
+          margin: 5px 0;
 
+          p.description {
+            word-wrap: break-word;
+            span.title-name {
+              font-weight: 600;
+              text-transform: uppercase;
+              margin-right: 10px;
+            }
           }
         }
       }

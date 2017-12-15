@@ -1,11 +1,14 @@
 import {Injectable} from '@angular/core';
-import {AstronomicalObjectType, GalaxyObjectType, PlanetoidObjectType} from '../types/types';
+import {
+  AstronomicalObjectType, GalaxyObjectType, GlobalAstronomicalObjectType,
+  PlanetoidObjectType
+} from '../types/types';
 import {GalaxyModel} from '../models/galaxy.model';
 import {SpaceSystemModel} from '../models/space-system.model';
 
 @Injectable()
 export class ApiService {
-  globalAstronomicalObjects: PlanetoidObjectType[] = [
+  globalAstronomicalObjects: GlobalAstronomicalObjectType[] = [
     {
       id: 1,
       name: 'Universe',
@@ -16,20 +19,25 @@ export class ApiService {
         x: null,
         y: null
       },
-      isUniverse: true,
+      galaxiesAmount: 1600000,
+      age: '13.799 billion years',
+      averageTemperature: '2.72548 K',
+      diameter: '47.8 – 170 billion parsecs',
+      isUniverse: true
     },
     {
       id: 2,
       name: 'Milky Way',
       weight: 480000000000,
-      /*speed: 552,*/
       speed: 552,
       discoverer: 'William Herschel',
       position: {
         x: this.setPositionX(),
         y: this.setPositionY()
       },
-      diameter: 100000,
+      diameter: '100–180k light years',
+      numberOfStars: '100–400 billion',
+      thickness: '2k light years',
       isGalaxy: true
     },
     {
@@ -42,6 +50,9 @@ export class ApiService {
         x: this.setPositionX(),
         y: this.setPositionY()
       },
+      diameter: '220k light years',
+      numberOfStars: '1 trillion',
+      thickness: '260k light years',
       isGalaxy: true
     },
     {
@@ -54,6 +65,9 @@ export class ApiService {
         x: this.setPositionX(),
         y: this.setPositionY()
       },
+      diameter: '14000 light years',
+      numberOfStars: '30 billion',
+      thickness: 'unknown',
       isGalaxy: true
     },
     {
