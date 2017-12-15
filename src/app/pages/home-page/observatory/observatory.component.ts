@@ -1,6 +1,6 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import {ApiService} from '../../../services/api.service';
-import {AstronomicalObjectType} from '../../../types/types';
+import {AstronomicalObjectType, GalaxyObjectType} from '../../../types/types';
 import {UniverseModel} from '../../../models/universe.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppComponent} from '../../../app.component';
@@ -24,14 +24,14 @@ export class ObservatoryComponent implements OnInit {
   async ngOnInit() {
     this.isDataLoading = true;
     const univ: AstronomicalObjectType = await this.apiService.getUniverse();
-    this.universe = new UniverseModel(univ.id, univ.name, univ.weight, univ.speed, univ.discoverer, univ.position, univ.size);
+    this.universe = new UniverseModel(univ.id, univ.name, univ.weight, univ.speed, univ.discoverer,
+      univ.position, univ.size);
     this.app.universe = this.universe;
     this.selectedGalaxy = null;
-    const galaxies = await this.apiService.getGalaxies();
+    const galaxies: GalaxyObjectType[] = await this.apiService.getGalaxies();
     galaxies.forEach((galaxy) => {
       this.universe.addGalaxy(galaxy);
     });
-
     this.isDataLoading = false;
   }
 

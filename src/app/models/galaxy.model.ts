@@ -5,12 +5,19 @@ import {SpaceSystemModel} from './space-system.model';
 export class GalaxyModel extends AstronomicalObjectModel {
   private _spaceSystems: Array<any>;
   private _parentUniverse: UniverseModel;
+  private _diameter: number;
+  private _numberOfStars: string;
+  private _thickness: number;
 
   constructor(id: number, name: string, weight: number, speed: number, discoverer: string,
-              position: { x: number, y: number }, size: { width: number, height: number }, parentUniverse: UniverseModel) {
+              position: { x: number, y: number }, size: { width: number, height: number }, parentUniverse: UniverseModel, diameter: number,
+              numberOfStars: string, thickness: number) {
     super(id, name, weight, speed, discoverer, position, size, null);
     this._parentUniverse = parentUniverse;
     this._spaceSystems = [];
+    this._diameter = diameter;
+    this._numberOfStars = numberOfStars;
+    this._thickness = thickness;
   }
 
   addSpaceSystems(system) {
@@ -25,6 +32,17 @@ export class GalaxyModel extends AstronomicalObjectModel {
 
   get parentUniverse() {
     return this._parentUniverse;
+  }
+  get diameter() {
+    return this._diameter;
+  }
+
+  get numberOfStars() {
+    return this._numberOfStars;
+  }
+
+  get thickness() {
+    return this._thickness;
   }
 
 }

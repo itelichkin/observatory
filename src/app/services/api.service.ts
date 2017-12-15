@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AstronomicalObjectType, PlanetoidObkectType} from '../types/types';
+import {AstronomicalObjectType, GalaxyObjectType, PlanetoidObkectType} from '../types/types';
 import {GalaxyModel} from '../models/galaxy.model';
 import {SpaceSystemModel} from '../models/space-system.model';
 
@@ -145,7 +145,7 @@ export class ApiService {
       imageName: 'mercury',
       parentRadius: 70,
       angle: 90,
-      orbitSpeed: 8
+      orbitSpeed: 88
     },
     {
       id: 10,
@@ -164,9 +164,9 @@ export class ApiService {
       },
       isPlanet: true,
       imageName: 'venus',
-      parentRadius: 95,
+      parentRadius: 100,
       angle: 90,
-      orbitSpeed: 7
+      orbitSpeed: 116
     },
     {
       id: 11,
@@ -185,9 +185,9 @@ export class ApiService {
       },
       isPlanet: true,
       imageName: 'earth',
-      parentRadius: 130,
+      parentRadius: 133,
       angle: 90,
-      orbitSpeed: 6
+      orbitSpeed: 365
     },
     {
       id: 12,
@@ -208,7 +208,7 @@ export class ApiService {
       imageName: 'mars',
       parentRadius: 160,
       angle: 90,
-      orbitSpeed: 5
+      orbitSpeed: 687
     },
     {
       id: 13,
@@ -229,7 +229,7 @@ export class ApiService {
       imageName: 'jupiter',
       parentRadius: 200,
       angle: 90,
-      orbitSpeed: 4
+      orbitSpeed: 4343
     },
     {
       id: 14,
@@ -248,9 +248,9 @@ export class ApiService {
       },
       isPlanet: true,
       imageName: 'saturn',
-      parentRadius: 260,
+      parentRadius: 300,
       angle: 90,
-      orbitSpeed: 4.5
+      orbitSpeed: 10759
     },
     {
       id: 15,
@@ -271,7 +271,7 @@ export class ApiService {
       imageName: 'uranus',
       parentRadius: 350,
       angle: 90,
-      orbitSpeed: 3
+      orbitSpeed: 30660
     },
     {
       id: 16,
@@ -292,7 +292,7 @@ export class ApiService {
       imageName: 'neptune',
       parentRadius: 400,
       angle: 90,
-      orbitSpeed: 2
+      orbitSpeed: 60148
     }
   ];
 
@@ -304,7 +304,7 @@ export class ApiService {
   }
 
 
-  async getGalaxies(): Promise<Array<AstronomicalObjectType>> {
+  async getGalaxies(): Promise<Array<GalaxyObjectType>> {
     return this._getGalaxies();
   }
 

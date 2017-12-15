@@ -22,6 +22,12 @@ export interface AstronomicalObjectType {
   imageName?: string;
 }
 
+export interface GalaxyObjectType extends AstronomicalObjectType {
+  diameter: number;
+  numberOfStars: string;
+  thickness: number;
+}
+
 export interface PlanetoidObkectType extends AstronomicalObjectType {
   systemId?: number;
   parentRadius?: number;

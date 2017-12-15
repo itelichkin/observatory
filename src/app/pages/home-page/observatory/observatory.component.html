@@ -2,9 +2,29 @@
 
   <mat-drawer-container *ngIf="!isDataLoading" autosize>
     <mat-drawer #drawer mode="side">
-      <h3>Information about: </h3>
-      <h3 class="selected-object-name">{{selectedGalaxy ? selectedGalaxy.name : universe.name}}</h3>
-
+      <mat-form-field>
+        <mat-select [(value)]="selectedGalaxy"  placeholder="Select galaxy">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let galaxy of universe.spaceGalaxies" [value]="galaxy">
+            {{ galaxy.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <h2 class="selected-object-name">{{selectedGalaxy ? selectedGalaxy.name : universe.name}}</h2>
+      <div class="information-about" fxLayout="column">
+        <div fxLayout="row" fxLayoutWrap="wrap">
+          <p class="title-name">Diameter</p>
+          <p class="description">{{selectedGalaxy ? '' : universe.diameter}}</p>
+        </div>
+        <div fxLayout="row" fxLayoutWrap="wrap">
+          <p class="title-name">Number of stars</p>
+          <p class="description">{{selectedGalaxy ? '' : universe.numberOfStars}}</p>
+        </div>
+        <div fxLayout="row" fxLayoutWrap="wrap">
+          <p class="title-name">Thickness</p>
+          <p class="description">{{selectedGalaxy ? '' : universe.thickness}}</p>
+        </div>
+      </div>
       <div class="action-button-container">
         <button mat-icon-button class="observatory-go-to-galaxy" matTooltip="Go to {{selectedGalaxy.name}}" *ngIf="selectedGalaxy" (click)="goToGalaxy()">
           <mat-icon>info</mat-icon>

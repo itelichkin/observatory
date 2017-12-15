@@ -25,7 +25,7 @@ export class PlanetModel extends PlanetoidModel {
   }
 
   orbitPosition() {
-    const s = this.orbitSpeed * Math.PI / 180;
+    const s = 1150 / this.orbitSpeed * Math.PI / 180;
     setInterval(() => {
       if (this.onMove) {
         this.angle += s;
@@ -35,8 +35,10 @@ export class PlanetModel extends PlanetoidModel {
   }
 
   private setPosition() {
-    this.position.x = (this.parentObject.position.x + this.parentObject.size.width / 2.5) + this._parentRadius * Math.sin(this.angle);
-    this.position.y = (this.parentObject.position.y + this.parentObject.size.height / 2.5) + this._parentRadius * Math.cos(this.angle);
+    this.position.x = (this.parentObject.position.x + this.parentObject.size.width / 2 - this.size.width + 5) +
+      this._parentRadius * Math.sin(this.angle);
+    this.position.y = (this.parentObject.position.y + this.parentObject.size.height / 2 - this.size.height + 5) +
+      this._parentRadius * Math.cos(this.angle);
   }
 
   addSatelliteObject(satellite) {

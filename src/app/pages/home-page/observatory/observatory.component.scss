@@ -9,10 +9,27 @@
     width: auto;
     height: 100%;
     mat-drawer {
+      padding: 20px 10px;
       width: 20%;
       overflow: auto;
-      h3.selected-object-name {
+      mat-form-field {
+        width: 100%;
+      }
+      h2.selected-object-name {
         font-weight: 600;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      .information-about {
+        div {
+          p.title-name {
+            font-weight: 600;
+            text-transform: uppercase;
+          }
+          p.description {
+
+          }
+        }
       }
       .action-button-container {
         width: 100%;
