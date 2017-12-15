@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {AstronomicalObjectType, GalaxyObjectType, PlanetoidObkectType} from '../types/types';
+import {AstronomicalObjectType, GalaxyObjectType, PlanetoidObjectType} from '../types/types';
 import {GalaxyModel} from '../models/galaxy.model';
 import {SpaceSystemModel} from '../models/space-system.model';
 
 @Injectable()
 export class ApiService {
-  globalAstronomicalObjects: PlanetoidObkectType[] = [
+  globalAstronomicalObjects: PlanetoidObjectType[] = [
     {
       id: 1,
       name: 'Universe',
@@ -28,6 +28,7 @@ export class ApiService {
         x: this.setPositionX(),
         y: this.setPositionY()
       },
+      diameter: 100000,
       isGalaxy: true
     },
     {
@@ -302,7 +303,6 @@ export class ApiService {
   async getUniverse(): Promise<AstronomicalObjectType> {
     return this._getUniverse();
   }
-
 
   async getGalaxies(): Promise<Array<GalaxyObjectType>> {
     return this._getGalaxies();
