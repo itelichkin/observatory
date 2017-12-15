@@ -23,12 +23,12 @@ export interface AstronomicalObjectType {
 }
 
 export interface GalaxyObjectType extends AstronomicalObjectType {
-  diameter: number;
-  numberOfStars: string;
-  thickness: number;
+  diameter?: number;
+  numberOfStars?: string;
+  thickness?: number;
 }
 
-export interface PlanetoidObkectType extends AstronomicalObjectType {
+export interface PlanetoidObjectType extends AstronomicalObjectType, GalaxyObjectType {
   systemId?: number;
   parentRadius?: number;
   angle?: number;
