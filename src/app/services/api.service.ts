@@ -22,6 +22,7 @@ export class ApiService {
       id: 2,
       name: 'Milky Way',
       weight: 480000000000,
+      /*speed: 552,*/
       speed: 552,
       discoverer: 'William Herschel',
       position: {
