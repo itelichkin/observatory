@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {
   AstronomicalObjectType, GalaxyObjectType, GlobalAstronomicalObjectType,
-  PlanetoidObjectType
+  PlanetoidObjectType, SystemObjectType
 } from '../types/types';
 import {GalaxyModel} from '../models/galaxy.model';
 import {SpaceSystemModel} from '../models/space-system.model';
@@ -82,7 +82,14 @@ export class ApiService {
         y: this.setPositionY()
       },
       isSystem: true,
-      imageName: 'solar-star'
+      imageName: 'solar-star',
+      age: '4,5682 billion years',
+      starsAmount: '1',
+      planetsAmount: '8',
+      dwarfPlanetAmount: '5',
+      satellitesAmount: `415 (172 - planets' & 243 - small bodies'`,
+      smallBodyAmount: 'over 700k',
+      cometAmount: '3441'
     },
     {
       id: 6,
@@ -96,7 +103,14 @@ export class ApiService {
         y: this.setPositionY()
       },
       isSystem: true,
-      imageName: 'orange-star'
+      imageName: 'orange-star',
+      age: '10 million years',
+      starsAmount: 'unknown',
+      planetsAmount: 'unknown',
+      dwarfPlanetAmount: 'unknown',
+      satellitesAmount: 'unknown',
+      smallBodyAmount: 'unknown',
+      cometAmount: 'unknown'
     },
     {
       id: 7,
@@ -110,9 +124,16 @@ export class ApiService {
         y: this.setPositionY()
       },
       isSystem: true,
-      imageName: 'yellow-star'
+      imageName: 'yellow-star',
+      age: 'unknown',
+      starsAmount: '1',
+      planetsAmount: 'unknown',
+      dwarfPlanetAmount: 'unknown',
+      satellitesAmount: 'unknown',
+      smallBodyAmount: 'unknown',
+      cometAmount: 'unknown'
     }, {
-      id: 7,
+      id: 8,
       name: 'Kefron',
       weight: 2.3,
       speed: 26,
@@ -123,9 +144,16 @@ export class ApiService {
         y: this.setPositionY()
       },
       isSystem: true,
-      imageName: 'blue-star'
+      imageName: 'blue-star',
+      age: 'unknown',
+      starsAmount: '1',
+      planetsAmount: 'unknown',
+      dwarfPlanetAmount: 'unknown',
+      satellitesAmount: 'unknown',
+      smallBodyAmount: 'unknown',
+      cometAmount: 'unknown'
     }, {
-      id: 8,
+      id: 9,
       name: 'Sun',
       weight: 1,
       speed: 2.2,
@@ -143,7 +171,7 @@ export class ApiService {
       imageName: 'sun'
     },
     {
-      id: 9,
+      id: 10,
       name: 'Mercury',
       weight: 0.000003,
       speed: null,
@@ -164,7 +192,7 @@ export class ApiService {
       orbitSpeed: 88
     },
     {
-      id: 10,
+      id: 11,
       name: 'Venus',
       weight: 0.00004,
       speed: null,
@@ -185,7 +213,7 @@ export class ApiService {
       orbitSpeed: 116
     },
     {
-      id: 11,
+      id: 12,
       name: 'Earth',
       weight: 0.00006,
       speed: null,
@@ -206,7 +234,7 @@ export class ApiService {
       orbitSpeed: 365
     },
     {
-      id: 12,
+      id: 13,
       name: 'Mars',
       weight: 0.000006,
       speed: null,
@@ -227,7 +255,7 @@ export class ApiService {
       orbitSpeed: 687
     },
     {
-      id: 13,
+      id: 14,
       name: 'Jupiter',
       weight: 0.0019,
       speed: null,
@@ -248,7 +276,7 @@ export class ApiService {
       orbitSpeed: 4343
     },
     {
-      id: 14,
+      id: 15,
       name: 'Saturn',
       weight: 0.0006,
       speed: null,
@@ -269,7 +297,7 @@ export class ApiService {
       orbitSpeed: 10759
     },
     {
-      id: 15,
+      id: 16,
       name: 'Uranus',
       weight: 0.0008,
       speed: null,
@@ -290,7 +318,7 @@ export class ApiService {
       orbitSpeed: 30660
     },
     {
-      id: 16,
+      id: 17,
       name: 'Neptune',
       weight: 0.0001,
       speed: null,
@@ -327,7 +355,7 @@ export class ApiService {
     return await this._getGalaxyById(galaxyId);
   }
 
-  async getSpaceSystems(galaxyId: number): Promise<SpaceSystemModel[]> {
+  async getSpaceSystems(galaxyId: number): Promise<SystemObjectType[]> {
     return this._getSpaceSystems(galaxyId);
   }
 

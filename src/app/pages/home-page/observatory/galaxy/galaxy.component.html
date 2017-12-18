@@ -1,15 +1,59 @@
 <section class="app-galaxy">
   <mat-drawer-container *ngIf="!isDataLoading" autosize>
     <mat-drawer #drawer mode="side">
-      <h3>Information about: </h3>
-      <h3 class="selected-object-name">{{selectedSystem ? selectedSystem.name : selectedGalaxy.name}}</h3>
-
-      <div class="action-button-container">
-        <button mat-icon-button class="galaxy-go-to-system" matTooltip="Go to {{selectedSystem.name}}" *ngIf="selectedSystem" (click)="goToSystem()">
-          <mat-icon>info</mat-icon>
-        </button>
+      <mat-form-field>
+        <mat-select [(value)]="selectedSystem" placeholder="Select system">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let system of selectedGalaxy.spaceSystems" [value]="system">
+            {{ system.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <h2 class="selected-object-name">{{selectedSystem ? selectedSystem.name : selectedGalaxy.name}}</h2>
+      <div class="information-about-galaxy" *ngIf="selectedGalaxy && !selectedSystem" fxLayout="column">
+        <div>
+          <p class="description"><span class="title-name">Diameter: </span>{{selectedGalaxy.diameter}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Number of stars: </span>{{selectedGalaxy.numberOfStars}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Thickness: </span>{{selectedGalaxy.thickness}}</p>
+        </div>
+      </div>
+      <div class="information-about-system" *ngIf="selectedSystem" fxLayout="column">
+        <div>
+          <p class="description"><span class="title-name">Age: </span>{{selectedSystem.age}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Amount of stars: </span>{{selectedSystem.starsAmount}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Amount of planets: </span>{{selectedSystem.planetsAmount}}
+          </p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Amount of draft's planets: </span>{{selectedSystem.dwarfPlanetAmount}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Amount of satellites: </span>{{selectedSystem.satellitesAmount}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Amount of small bodies: </span>{{selectedSystem.smallBodyAmount}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Amount of comets: </span>{{selectedSystem.cometAmount}}</p>
+        </div>
       </div>
 
+      <div class="action-button-container">
+        <button mat-icon-button class="galaxy-go-to-system" matTooltip="Go to {{universe?.name}}" (click)="goToUniverse()">
+          <i class="fas fa-chevron-circle-left"></i>
+        </button>
+        <button mat-icon-button class="galaxy-go-to-system" matTooltip="Go to {{selectedSystem?.name}}" [disabled]="!selectedSystem" (click)="goToSystem()">
+          <i class="fas fa-chevron-circle-right"></i>
+        </button>
+      </div>
     </mat-drawer>
 
     <div class="galaxy-sidenav-content">

@@ -35,6 +35,16 @@ export interface GalaxyObjectType extends AstronomicalObjectType {
   thickness?: string;
 }
 
+export interface SystemObjectType extends AstronomicalObjectType {
+  age?: string;
+  starsAmount?: string;
+  planetsAmount?: string;
+  dwarfPlanetAmount?: string;
+  satellitesAmount?: string;
+  smallBodyAmount?: string;
+  cometAmount?: string;
+}
+
 export interface PlanetoidObjectType extends AstronomicalObjectType {
   systemId?: number;
   parentRadius?: number;
@@ -42,7 +52,7 @@ export interface PlanetoidObjectType extends AstronomicalObjectType {
   orbitSpeed?: number;
 }
 
-export interface GlobalAstronomicalObjectType extends PlanetoidObjectType, GalaxyObjectType, UniverseObjectType {
+export interface GlobalAstronomicalObjectType extends PlanetoidObjectType, GalaxyObjectType, UniverseObjectType, SystemObjectType {
 
 }
 

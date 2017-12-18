@@ -38,12 +38,11 @@
         </div>
       </div>
       <div class="action-button-container">
-        <button mat-icon-button class="observatory-go-to-galaxy" matTooltip="Go to {{selectedGalaxy.name}}"
-                *ngIf="selectedGalaxy" (click)="goToGalaxy()">
-          <mat-icon>subdirectory_arrow_right</mat-icon>
+        <button mat-icon-button class="observatory-go-to-galaxy" matTooltip="Go to {{selectedGalaxy?.name}}"
+                [disabled]="!selectedGalaxy" (click)="goToGalaxy()">
+          <i class="fas fa-chevron-circle-right"></i>
         </button>
       </div>
-
     </mat-drawer>
 
     <div class="observatory-sidenav-content">

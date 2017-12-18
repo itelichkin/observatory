@@ -22,7 +22,8 @@ export class GalaxyModel extends AstronomicalObjectModel {
 
   addSpaceSystems(system) {
     const newSystem = new SpaceSystemModel(system.id, system.name, system.weight, system.speed, system.discoverer,
-      system.position, system.size, system.imageName, this);
+      system.position, system.size, system.imageName, this, system.age, system.starsAmount, system.planetsAmount,
+      system.dwarfPlanetAmount, system.satellitesAmount, system.smallBodyAmount, system.cometAmount);
     this._spaceSystems.push(newSystem);
   }
 
@@ -33,6 +34,7 @@ export class GalaxyModel extends AstronomicalObjectModel {
   get parentUniverse() {
     return this._parentUniverse;
   }
+
   get diameter() {
     return this._diameter;
   }
