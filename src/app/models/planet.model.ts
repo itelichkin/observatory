@@ -6,9 +6,12 @@ import {SatelliteModel} from './satellite.model';
 export class PlanetModel extends PlanetoidModel {
   private _rings: number;
   private _angle: number;
-  private _orbitSpeed: number;
+  private _orbitSpeedIndex: number;
   private _parentRadius: number;
-  private onMove: boolean;
+  private _isPlanet: boolean;
+  private _onMove: boolean;
+  private _orbitSpeed: number;
+  protected _intervalWatcher;
 
   constructor(id: number, name: string, weight: number, speed: number,
               discoverer: string, position: { x: number, y: number }, size: { width: number, height: number },
@@ -19,15 +22,18 @@ export class PlanetModel extends PlanetoidModel {
     this._angle = angle;
     this._parentRadius = parentRadius;
     this._orbitSpeed = orbitSpeed;
-    this.onMove = true;
+    this._isPlanet = true;
+    this._onMove = false;
+    this._orbitSpeedIndex = 4;
     this.setPosition();
     this.orbitPosition();
+
   }
 
   orbitPosition() {
-    const s = 1150 / this.orbitSpeed * Math.PI / 180;
-    setInterval(() => {
-      if (this.onMove) {
+    this._intervalWatcher = setInterval(() => {
+      const s = (287.5 * this._orbitSpeedIndex) / this.orbitSpeed * Math.PI / 180;
+      if (this._onMove) {
         this.angle += s;
         this.setPosition();
       }
@@ -52,6 +58,10 @@ export class PlanetModel extends PlanetoidModel {
     });
   }
 
+  setOrbitSpeedIndex(speedIndex: number) {
+    this._orbitSpeedIndex = speedIndex;
+  }
+
   get rings() {
     return this._rings;
   }
@@ -71,4 +81,10 @@ export class PlanetModel extends PlanetoidModel {
   get orbitSpeed() {
     return this._orbitSpeed;
   }
+
+  get isPlanet() {
+    return this._isPlanet;
+  }
+
+
 }

@@ -160,7 +160,7 @@ export class ApiService {
       discoverer: null,
       systemId: 5,
       position: {
-        x: 700,
+        x: 600,
         y: 380
       },
       size: {

@@ -51,7 +51,7 @@ export class GalaxyComponent implements OnInit {
   }
 
   goToUniverse() {
-    this.router.navigate([`/observatory/galaxy/${this.selectedGalaxy.id}`]);
+    this.router.navigate([`/observatory`]);
   }
 
   goToSystem() {

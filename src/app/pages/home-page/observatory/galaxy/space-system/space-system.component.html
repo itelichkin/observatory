@@ -1,8 +1,65 @@
 <section class="app-space-system">
   <mat-drawer-container *ngIf="!isDataLoading" autosize>
     <mat-drawer #drawer mode="side">
-      <h3>Information about: </h3>
-      <h3 class="selected-object-name">{{selectedSpaceObject ? selectedSpaceObject.name : selectedSystem.name}}</h3>
+      <mat-form-field class="select-space-object-container">
+        <mat-select [(value)]="selectedSpaceObject" placeholder="Select system">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let planet of selectedSystem.centralStar.satelliteObjects" [value]="planet">
+            {{ planet.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="speed-action-button">
+        <button mat-raised-button (click)="toMove()"> {{selectedSystem.onMove ? 'STOP' : 'START'}}</button>
+        <mat-form-field class="object-speed">
+          <mat-select [(value)]="orbitSpeed" placeholder="Select a speed" (change)="setOrbitSpeed()">
+            <mat-option *ngFor="let speed of orbitSpeedArray" [value]="speed.key">
+              {{ speed.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <h2 class="selected-object-name">{{selectedSpaceObject ? selectedSpaceObject.name : selectedSystem.name}}</h2>
+      <div class="information-about-system" *ngIf="selectedSystem && !selectedSpaceObject" fxLayout="column">
+        <div>
+          <p class="description"><span class="title-name">Age: </span>{{selectedSystem.age}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Amount of stars: </span>{{selectedSystem.starsAmount}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Amount of planets: </span>{{selectedSystem.planetsAmount}}
+          </p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Amount of draft's planets: </span>{{selectedSystem.dwarfPlanetAmount}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Amount of satellites: </span>{{selectedSystem.satellitesAmount}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Amount of small bodies: </span>{{selectedSystem.smallBodyAmount}}</p>
+        </div>
+        <div>
+          <p class="description"><span class="title-name">Amount of comets: </span>{{selectedSystem.cometAmount}}</p>
+        </div>
+      </div>
+      <div *ngIf="selectedSpaceObject" class="information-about-planet">
+        <div *ngIf="selectedSpaceObject.isPlanet">
+          <p class="description"><span class="title-name">Orbital period: </span>{{selectedSpaceObject.orbitSpeed}} Earth's days</p>
+        </div>
+        <div *ngIf="selectedSpaceObject.isPlanet">
+          <p class="description"><span class="title-name">Number of rings: </span>{{selectedSpaceObject.rings}}</p>
+        </div>
+       <!-- <div *ngIf="selectedSpaceObject.isPlanet">
+          <p class="description"><span class="title-name">Number of rings: </span>{{selectedSpaceObject.rings}}</p>
+        </div>-->
+      </div>
+      <div class="action-button-container">
+        <button mat-icon-button class="galaxy-go-to-system" matTooltip="Go to {{selectedGalaxy?.name}}" (click)="goToGalaxy()">
+          <i class="fas fa-chevron-circle-left"></i>
+        </button>
+      </div>
     </mat-drawer>
 
     <div class="system-sidenav-content">

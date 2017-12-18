@@ -4,7 +4,6 @@ import {PlanetModel} from './planet.model';
 
 export class SpaceSystemModel extends AstronomicalObjectModel {
   private _parentGalaxy: AstronomicalObjectModel;
-  private _spacePlanets: Array<any>;
   private _centralStar: StarModel;
   private _age: string;
   private _starsAmount: string;
@@ -13,6 +12,7 @@ export class SpaceSystemModel extends AstronomicalObjectModel {
   private _satellitesAmount: string;
   private _smallBodyAmount: string;
   private _cometAmount: string;
+  private _onMove: boolean;
 
   constructor(id: number, name: string, weight: number, speed: number, discoverer: string,
               position: { x: number, y: number }, size: { width: number, height: number },
@@ -20,7 +20,6 @@ export class SpaceSystemModel extends AstronomicalObjectModel {
               dwarfPlanetAmount: string, satellitesAmount: string, smallBodyAmount: string, cometAmount: string) {
     super(id, name, weight, speed, discoverer, position, size, imageName);
     this._parentGalaxy = parentGalaxy;
-    this._spacePlanets = [];
     this._age = age;
     this._starsAmount = starsAmount;
     this._planetsAmount = planetsAmount;
@@ -28,6 +27,7 @@ export class SpaceSystemModel extends AstronomicalObjectModel {
     this._satellitesAmount = satellitesAmount;
     this._smallBodyAmount = smallBodyAmount;
     this._cometAmount = cometAmount;
+    this._onMove = false;
   }
 
   addCentralStar(star) {
@@ -35,12 +35,36 @@ export class SpaceSystemModel extends AstronomicalObjectModel {
       star.position, star.size, star.imageName, true);
   }
 
-  get parentGalaxy() {
-    return this._parentGalaxy;
+  stopOrbitMoving() {
+    this.centralStar.satelliteObjects.forEach((planet) => {
+      this._onMove = false;
+      planet._onMove = false;
+    });
   }
 
-  get spacePlanets() {
-    return this._spacePlanets;
+  startOrbitMoving() {
+    this.centralStar.satelliteObjects.forEach((planet) => {
+      planet._onMove = true;
+      this._onMove = true;
+    });
+  }
+
+  destroySystem() {
+    this.centralStar.satelliteObjects.forEach((planet) => {
+      planet._onMove = false;
+      this._onMove = false;
+      clearInterval(planet._intervalWatcher);
+    });
+  }
+
+  setOrbitSpeed(speed: number) {
+    this.centralStar.satelliteObjects.forEach((planet) => {
+      planet.setOrbitSpeedIndex(speed);
+    });
+  }
+
+  get parentGalaxy() {
+    return this._parentGalaxy;
   }
 
   get centralStar() {
@@ -73,6 +97,10 @@ export class SpaceSystemModel extends AstronomicalObjectModel {
 
   get cometAmount() {
     return this._cometAmount;
+  }
+
+  get onMove() {
+    return this._onMove;
   }
 
 }
