@@ -1,0 +1,40 @@
+<section class="app-modify-space-object">
+  <mat-card *ngIf="selectedSpaceObject">
+    <mat-card-header>
+      <h1 class="title-text-style">{{modifyAction}}</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <form [(formGroup)]="formSpaceObject">
+        <mat-card>
+          <mat-card-content fxLayoutWrap>
+            <mat-input-container fxFlex="100" class="full-width">
+              <input matInput placeholder="Name" required formControlName="name">
+            </mat-input-container>
+            <div fxFlex="100" fxLayoutAlign="space-between center">
+              <mat-input-container fxFlex="49">
+                <input matInput placeholder="Type" required formControlName="type">
+              </mat-input-container>
+              <mat-input-container fxFlex="49">
+                <input matInput required formControlName="discoverer"
+                       placeholder="Discoverer">
+              </mat-input-container>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="action-buttons">
+        <button mat-icon-button class="cancel-button" matTooltip="Cancel" (click)="cancelForm()">
+          <mat-icon>clear</mat-icon>
+        </button>
+        <button class="submit-button" matTooltip="Submit" mat-icon-button
+                [disabled]="formSpaceObject.status == 'INVALID'"
+                (click)="submitForm()">
+          <mat-icon>check</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
+
+  </mat-card>
+</section>

@@ -1,0 +1,24 @@
+.app-space-objects-list {
+  padding: 20px 10px;
+  h1 {
+    font-size: 25px;
+    padding: 10px 0;
+    width: 100%;
+    text-transform: uppercase;
+    color: #3F51B5;
+  }
+  .top-action-buttons {
+    align-self: flex-end;
+    width: 100%;
+    text-align: right;
+    margin-bottom: 10px;
+  }
+  .actions {
+    text-align: center;
+  }
+
+  .create-new-space-object, .edit-space-object {
+    color: #3F51B5;
+  }
+
+}

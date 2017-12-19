@@ -23,6 +23,7 @@ export class ApiService {
       age: '13.799 billion years',
       averageTemperature: '2.72548 K',
       diameter: '47.8 – 170 billion parsecs',
+      type: 'Universe',
       isUniverse: true
     },
     {
@@ -38,6 +39,7 @@ export class ApiService {
       diameter: '100–180k light years',
       numberOfStars: '100–400 billion',
       thickness: '2k light years',
+      type: 'Galaxy',
       isGalaxy: true
     },
     {
@@ -53,6 +55,7 @@ export class ApiService {
       diameter: '220k light years',
       numberOfStars: '1 trillion',
       thickness: '260k light years',
+      type: 'Galaxy',
       isGalaxy: true
     },
     {
@@ -68,6 +71,7 @@ export class ApiService {
       diameter: '14000 light years',
       numberOfStars: '30 billion',
       thickness: 'unknown',
+      type: 'Galaxy',
       isGalaxy: true
     },
     {
@@ -81,6 +85,7 @@ export class ApiService {
         x: this.setPositionX(),
         y: this.setPositionY()
       },
+      type: 'System',
       isSystem: true,
       imageName: 'solar-star',
       age: '4,5682 billion years',
@@ -102,6 +107,7 @@ export class ApiService {
         x: this.setPositionX(),
         y: this.setPositionY()
       },
+      type: 'System',
       isSystem: true,
       imageName: 'orange-star',
       age: '10 million years',
@@ -123,6 +129,7 @@ export class ApiService {
         x: this.setPositionX(),
         y: this.setPositionY()
       },
+      type: 'System',
       isSystem: true,
       imageName: 'yellow-star',
       age: 'unknown',
@@ -143,6 +150,7 @@ export class ApiService {
         x: this.setPositionX(),
         y: this.setPositionY()
       },
+      type: 'System',
       isSystem: true,
       imageName: 'blue-star',
       age: 'unknown',
@@ -167,6 +175,7 @@ export class ApiService {
         width: 105,
         height: 100
       },
+      type: 'Star',
       isStar: true,
       imageName: 'sun'
     },
@@ -185,6 +194,7 @@ export class ApiService {
         width: 15,
         height: 15
       },
+      type: 'Planet',
       isPlanet: true,
       imageName: 'mercury',
       parentRadius: 70,
@@ -206,6 +216,7 @@ export class ApiService {
         width: 22,
         height: 22
       },
+      type: 'Planet',
       isPlanet: true,
       imageName: 'venus',
       parentRadius: 100,
@@ -227,6 +238,7 @@ export class ApiService {
         width: 25,
         height: 25
       },
+      type: 'Planet',
       isPlanet: true,
       imageName: 'earth',
       parentRadius: 133,
@@ -248,6 +260,7 @@ export class ApiService {
         width: 20,
         height: 20
       },
+      type: 'Planet',
       isPlanet: true,
       imageName: 'mars',
       parentRadius: 160,
@@ -269,6 +282,7 @@ export class ApiService {
         width: 45,
         height: 45
       },
+      type: 'Planet',
       isPlanet: true,
       imageName: 'jupiter',
       parentRadius: 200,
@@ -290,6 +304,7 @@ export class ApiService {
         width: 90,
         height: 40
       },
+      type: 'Planet',
       isPlanet: true,
       imageName: 'saturn',
       parentRadius: 300,
@@ -311,6 +326,7 @@ export class ApiService {
         width: 32,
         height: 32
       },
+      type: 'Planet',
       isPlanet: true,
       imageName: 'uranus',
       parentRadius: 350,
@@ -332,6 +348,7 @@ export class ApiService {
         width: 30,
         height: 30
       },
+      type: 'Planet',
       isPlanet: true,
       imageName: 'neptune',
       parentRadius: 400,
@@ -341,6 +358,30 @@ export class ApiService {
   ];
 
   constructor() {
+  }
+
+  async getAllSpaceObjects() {
+    const result = await this.globalAstronomicalObjects;
+    return result;
+  }
+
+  async getSpaceObjectById(id: number) {
+    let result;
+    this.globalAstronomicalObjects.some((obj) => {
+      if (obj.id === id) {
+        result = obj;
+        return true;
+      }
+    });
+    return result;
+  }
+
+  async createNewSpaceObject(data) {
+    return true;
+  }
+
+  async editSpaceObject(data) {
+    return true;
   }
 
   async getUniverse(): Promise<AstronomicalObjectType> {

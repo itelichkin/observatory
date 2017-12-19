@@ -12,6 +12,7 @@ export interface AstronomicalObjectType {
     width: number,
     height: number
   };
+  type: string;
   isUniverse?: boolean;
   isGalaxy?: boolean;
   isSystem?: boolean;

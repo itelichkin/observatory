@@ -5,9 +5,10 @@ import {HomePageComponent} from './pages/home-page/home-page.component';
 import {PageNotFoundComponent} from './pages/page-not-found/page-not-found.component';
 import {PageDefaultComponent} from './pages/page-default/page-default.component';
 import {ObservatoryComponent} from './pages/home-page/observatory/observatory.component';
-import {NewSpaceObjectComponent} from './pages/home-page/new-space-object/new-space-object.component';
+import {SpaceObjectsListComponent} from './pages/home-page/space-objects-list/space-objects-list.component';
 import {GalaxyComponent} from './pages/home-page/observatory/galaxy/galaxy.component';
 import {SpaceSystemComponent} from './pages/home-page/observatory/galaxy/space-system/space-system.component';
+import {ModifySpaceObjectComponent} from './pages/home-page/space-objects-list/modify-space-object/modify-space-object.component';
 
 export const routes: Routes = [
     {path: '', component: PageDefaultComponent},
@@ -31,7 +32,9 @@ export const routes: Routes = [
     {path: 'observatory', component: ObservatoryComponent},
     {path: 'observatory/galaxy/:id', component: GalaxyComponent},
     {path: 'observatory/galaxy/:id/system/:id', component: SpaceSystemComponent},
-    {path: 'new-space-object', component: NewSpaceObjectComponent},
+    {path: 'space-objects-list', component: SpaceObjectsListComponent},
+    {path: 'space-objects-list/:id/:action', component: ModifySpaceObjectComponent},
+    {path: 'space-objects-list/:new', component: ModifySpaceObjectComponent},
     {path: '**', component: PageNotFoundComponent}
   ]
 ;

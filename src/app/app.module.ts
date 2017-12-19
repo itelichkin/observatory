@@ -9,7 +9,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { PageDefaultComponent } from './pages/page-default/page-default.component';
 import { ObservatoryComponent } from './pages/home-page/observatory/observatory.component';
-import { NewSpaceObjectComponent } from './pages/home-page/new-space-object/new-space-object.component';
+import { SpaceObjectsListComponent } from './pages/home-page/space-objects-list/space-objects-list.component';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -18,6 +18,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {CommonModule} from '@angular/common';
 import { GalaxyComponent } from './pages/home-page/observatory/galaxy/galaxy.component';
 import { SpaceSystemComponent } from './pages/home-page/observatory/galaxy/space-system/space-system.component';
+import {DataTableModule, OverlayPanelModule, SharedModule} from 'primeng/primeng';
+import { ModifySpaceObjectComponent } from './pages/home-page/space-objects-list/modify-space-object/modify-space-object.component';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,10 @@ import { SpaceSystemComponent } from './pages/home-page/observatory/galaxy/space
     PageNotFoundComponent,
     PageDefaultComponent,
     ObservatoryComponent,
-    NewSpaceObjectComponent,
+    SpaceObjectsListComponent,
     GalaxyComponent,
-    SpaceSystemComponent
+    SpaceSystemComponent,
+    ModifySpaceObjectComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +42,10 @@ import { SpaceSystemComponent } from './pages/home-page/observatory/galaxy/space
     FlexLayoutModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    ObservatoryMaterialModule
+    ObservatoryMaterialModule,
+    DataTableModule,
+    SharedModule,
+    OverlayPanelModule
   ],
   providers: [ApiService, AppComponent],
   bootstrap: [AppComponent]
