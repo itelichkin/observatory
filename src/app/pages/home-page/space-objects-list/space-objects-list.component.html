@@ -14,26 +14,32 @@
     </mat-card-header>
     <mat-card-content>
       <p-dataTable [value]="spaceObjectData"
+                   (onFilter)="setFilteringSearchPTable($event)"
                    [loading]="false"
                    [rows]="10"
                    [paginator]="true"
                    [pageLinks]="3"
                    [rowsPerPageOptions]="[10,25,50]"
                    [style]="{'word-wrap': 'break-word'}">
+        <p-footer>{{filteringSearchPTable?.length || spaceObjectData?.length || 0}} {{filteringSearchPTable?.length  === 1 ? 'item' : spaceObjectData?.length === 1 ? 'item' : 'items'}}</p-footer>
         <p-column field="actions" header="Actions" [style]="{'width':'150px'}">
-          <ng-template let-object="rowData" pTemplate="body">
+          <ng-template let-object="rowData" let-index="rowIndex"  pTemplate="body">
             <div class="actions">
               <button mat-icon-button matTooltip="Edit"
                       (click)="editSpaceObject(object.id)">
                 <mat-icon class="edit-space-object">border_color</mat-icon>
               </button>
+              <button mat-icon-button matTooltip="Delete"
+                      (click)="deleteSpaceObject(object.id, index)">
+                <mat-icon class="delete-space-object">delete</mat-icon>
+              </button>
             </div>
           </ng-template>
         </p-column>
-        <p-column field="name" header="Name"></p-column>
-        <p-column field="type" header="Type"></p-column>
-        <p-column field="age" header="Age"></p-column>
-        <p-column field="discoverer" header="Discoverer"></p-column>
+        <p-column field="name" header="Name" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
+        <p-column field="type" header="Type" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
+        <p-column field="age" header="Age" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
+        <p-column field="discoverer" header="Discoverer" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
       </p-dataTable>
     </mat-card-content>
   </mat-card>

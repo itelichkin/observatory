@@ -12,6 +12,7 @@ export class SpaceObjectsListComponent implements OnInit {
   spaceObjectData: Array<GlobalAstronomicalObjectType>;
   title: string;
   isDataLoading: boolean;
+  filteringSearchPTable: any[];
 
   constructor(private apiService: ApiService,
               private router: Router) {
@@ -30,5 +31,15 @@ export class SpaceObjectsListComponent implements OnInit {
 
   editSpaceObject(id: number) {
     this.router.navigate(['space-objects-list', id, 'edit']);
+  }
+
+  async deleteSpaceObject(id: number, index) {
+    this.spaceObjectData.splice(index, 1);
+    this.spaceObjectData = [...this.spaceObjectData];
+    await this.apiService.deleteSpaceObject(id);
+  }
+
+  setFilteringSearchPTable(event) {
+    this.filteringSearchPTable = event.filteredValue;
   }
 }

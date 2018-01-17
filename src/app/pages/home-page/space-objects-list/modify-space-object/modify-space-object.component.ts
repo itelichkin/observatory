@@ -15,6 +15,7 @@ export class ModifySpaceObjectComponent implements OnInit {
   modifyAction: string;
   selectedSpaceObject: GlobalAstronomicalObjectType;
   formSpaceObject: FormGroup;
+  typeArray: string[];
 
   constructor(private app: AppComponent,
               private apiService: ApiService,
@@ -26,11 +27,8 @@ export class ModifySpaceObjectComponent implements OnInit {
         if (params.id) {
           this.spaceObjectId = +params.id;
         }
-        if (params.edit) {
-          this.modifyAction = 'Edit space object';
-        }
-        if (params.new) {
-          this.modifyAction = 'New space object';
+        if (params.action) {
+          this.modifyAction = params.action === 'edit' ? 'Edit space object' : 'New space object';
         }
       });
   }
@@ -44,6 +42,7 @@ export class ModifySpaceObjectComponent implements OnInit {
       type: new FormControl({value: this.selectedSpaceObject.type || '', disabled: false}),
       discoverer: new FormControl({value: this.selectedSpaceObject.discoverer || '', disabled: false}),
     });
+    this.typeArray = ['Universe', 'Galaxy', 'System', 'Star', 'Planet'];
   }
 
   async submitForm() {

@@ -11,11 +11,15 @@
               <input matInput placeholder="Name" required formControlName="name">
             </mat-input-container>
             <div fxFlex="100" fxLayoutAlign="space-between center">
+              <mat-form-field fxFlex="49">
+                <mat-select placeholder="Type" required formControlName="type">
+                  <mat-option *ngFor="let type of typeArray" [value]="type">
+                    {{ type }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
               <mat-input-container fxFlex="49">
-                <input matInput placeholder="Type" required formControlName="type">
-              </mat-input-container>
-              <mat-input-container fxFlex="49">
-                <input matInput required formControlName="discoverer"
+                <input matInput formControlName="discoverer"
                        placeholder="Discoverer">
               </mat-input-container>
             </div>

@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {
   AstronomicalObjectType, GalaxyObjectType, GlobalAstronomicalObjectType,
-  PlanetoidObjectType, SystemObjectType
+  SystemObjectType
 } from '../types/types';
 import {GalaxyModel} from '../models/galaxy.model';
-import {SpaceSystemModel} from '../models/space-system.model';
+
+const SPACE_OBJECT_KEY = 'SPACE_OBJECTS';
+const SPACE_OBJECT_ID_KEY = 'SPACE_OBJECTS_ID';
 
 @Injectable()
 export class ApiService {
@@ -356,19 +358,37 @@ export class ApiService {
       orbitSpeed: 60148
     }
   ];
+  local = window.localStorage;
 
   constructor() {
+    const allObjects = JSON.parse(this.local.getItem(SPACE_OBJECT_KEY));
+    if (!allObjects) {
+      this.local.setItem(SPACE_OBJECT_KEY, JSON.stringify(this.globalAstronomicalObjects));
+      const id = this.globalAstronomicalObjects[this.globalAstronomicalObjects.length - 1].id;
+      this.local.setItem(SPACE_OBJECT_ID_KEY, JSON.stringify(id));
+    }
   }
 
-  async getAllSpaceObjects() {
-    const result = await this.globalAstronomicalObjects;
-    return result;
+  saveObjectById(data) {
+    const allObjects: any[] = JSON.parse(this.local.getItem(SPACE_OBJECT_KEY));
+    allObjects.some((obj) => {
+      if (data.id === obj.id) {
+        obj = data;
+        return true;
+      }
+    });
+    this.local.setItem(SPACE_OBJECT_KEY, JSON.stringify(allObjects));
   }
 
-  async getSpaceObjectById(id: number) {
+  getAllObjects() {
+    return JSON.parse(this.local.getItem(SPACE_OBJECT_KEY));
+  }
+
+  getObjectById(id: number) {
     let result;
-    this.globalAstronomicalObjects.some((obj) => {
-      if (obj.id === id) {
+    const allObjects: any[] = JSON.parse(this.local.getItem(SPACE_OBJECT_KEY));
+    allObjects.some((obj) => {
+      if (id === obj.id) {
         result = obj;
         return true;
       }
@@ -376,12 +396,38 @@ export class ApiService {
     return result;
   }
 
+  async getAllSpaceObjects() {
+    const result = this.getAllObjects();
+    return result;
+  }
+
+  async getSpaceObjectById(id: number) {
+    return this.getObjectById(id);
+  }
+
   async createNewSpaceObject(data) {
+    const allObj = this.getAllObjects();
+    data['id'] = JSON.parse(this.local.getItem(SPACE_OBJECT_ID_KEY)) + 1;
+    allObj.push(data);
+    this.local.setItem(SPACE_OBJECT_ID_KEY, JSON.stringify(data['id']));
+    this.local.setItem(SPACE_OBJECT_KEY, JSON.stringify(allObj));
     return true;
   }
 
   async editSpaceObject(data) {
+    this.saveObjectById(data);
     return true;
+  }
+
+  async deleteSpaceObject(id: number) {
+    const allObj = this.getAllObjects();
+    allObj.some((obj, index) => {
+      if (obj.id === id) {
+        allObj.splice(index, 1);
+        return true;
+      }
+    });
+    this.local.setItem(SPACE_OBJECT_KEY, JSON.stringify(allObj));
   }
 
   async getUniverse(): Promise<AstronomicalObjectType> {
@@ -422,9 +468,11 @@ export class ApiService {
 
   private async _getUniverse() {
     let universe;
-    this.globalAstronomicalObjects.forEach((obj) => {
+    const allObj = this.getAllObjects();
+    allObj.some((obj) => {
       if (obj.isUniverse) {
         universe = obj;
+        return true;
       }
     });
     return universe;
@@ -432,7 +480,8 @@ export class ApiService {
 
   private async _getGalaxies() {
     const galaxies = [];
-    this.globalAstronomicalObjects.forEach((obj) => {
+    const allObj = this.getAllObjects();
+    allObj.forEach((obj) => {
       if (obj.isGalaxy) {
         galaxies.push(obj);
       }
@@ -442,7 +491,8 @@ export class ApiService {
 
   private _getGalaxyById(galaxyId: number) {
     let galaxy;
-    this.globalAstronomicalObjects.some((obj) => {
+    const allObj = this.getAllObjects();
+    allObj.some((obj) => {
       if (obj.isGalaxy && obj.id === galaxyId) {
         galaxy = obj;
         return true;
@@ -453,7 +503,8 @@ export class ApiService {
 
   private _getSpaceSystems(galaxyId: number) {
     const _system = [];
-    this.globalAstronomicalObjects.forEach((obj) => {
+    const allObj = this.getAllObjects();
+    allObj.forEach((obj) => {
       if (obj.isSystem && obj.galaxyId === galaxyId) {
         _system.push(obj);
       }
@@ -463,7 +514,8 @@ export class ApiService {
 
   private _getSystemById(systemId: number) {
     let system;
-    this.globalAstronomicalObjects.some((obj) => {
+    const allObj = this.getAllObjects();
+    allObj.some((obj) => {
       if (obj.isSystem && obj.id === systemId) {
         system = obj;
         return true;
@@ -474,7 +526,8 @@ export class ApiService {
 
   private _getCentralStar(systemId: number) {
     let star;
-    this.globalAstronomicalObjects.some((obj) => {
+    const allObj = this.getAllObjects();
+    allObj.some((obj) => {
       if (obj.isStar && obj.systemId === systemId) {
         star = obj;
         return true;
@@ -485,7 +538,8 @@ export class ApiService {
 
   private _getSpacePlanets(systemId: number) {
     const planets = [];
-    this.globalAstronomicalObjects.forEach((obj) => {
+    const allObj = this.getAllObjects();
+    allObj.forEach((obj) => {
       if (obj.isPlanet && obj.systemId === systemId) {
         planets.push(obj);
       }
