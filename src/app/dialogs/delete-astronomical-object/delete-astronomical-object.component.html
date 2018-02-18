@@ -1,0 +1,10 @@
+<section class="app-delete-astronomical-object">
+  <h2 matDialogTitle>Remove <span>{{objectName}}</span></h2>
+  <mat-dialog-content>
+    <p class="dialog-text">Do you really want to delete this astronomical object?</p>
+  </mat-dialog-content>
+  <mat-dialog-actions [attr.align]="'End'">
+    <button mat-icon-button class="cancel-button" (click)="closeDialog()"><mat-icon aria-label="Cancel">clear</mat-icon></button>
+    <button mat-icon-button class="agree-button" (click)="toRemoveObject()"><mat-icon aria-label="Ok">done</mat-icon></button>
+  </mat-dialog-actions>
+</section>

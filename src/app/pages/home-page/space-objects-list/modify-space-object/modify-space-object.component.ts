@@ -22,14 +22,13 @@ export class ModifySpaceObjectComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               public formBuilder: FormBuilder) {
-    this.route.params.subscribe(
-      (params: any) => {
+    this.route.params.subscribe((params: any) => {
+      if (params) {
         if (params.id) {
           this.spaceObjectId = +params.id;
         }
-        if (params.action) {
-          this.modifyAction = params.action === 'edit' ? 'Edit space object' : 'New space object';
-        }
+        this.modifyAction = params.action ? 'Edit space object' : 'New space object';
+      }
       });
   }
 

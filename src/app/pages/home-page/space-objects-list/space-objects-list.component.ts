@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GlobalAstronomicalObjectType} from '../../../types/types';
 import {ApiService} from '../../../services/api.service';
 import {Router} from '@angular/router';
+import {DialogService} from '../../../services/dialog.service';
 
 @Component({
   selector: 'app-space-objects-list',
@@ -15,7 +16,8 @@ export class SpaceObjectsListComponent implements OnInit {
   filteringSearchPTable: any[];
 
   constructor(private apiService: ApiService,
-              private router: Router) {
+              private router: Router,
+              private dialogService: DialogService) {
   }
 
   async ngOnInit() {
@@ -33,10 +35,13 @@ export class SpaceObjectsListComponent implements OnInit {
     this.router.navigate(['space-objects-list', id, 'edit']);
   }
 
-  async deleteSpaceObject(id: number, index) {
-    this.spaceObjectData.splice(index, 1);
-    this.spaceObjectData = [...this.spaceObjectData];
-    await this.apiService.deleteSpaceObject(id);
+  async deleteSpaceObject(id: number, index, name: string) {
+    const result = await this.dialogService.deleteDialog(name);
+    if (result) {
+      this.spaceObjectData.splice(index, 1);
+      this.spaceObjectData = [...this.spaceObjectData];
+      await this.apiService.deleteSpaceObject(id);
+    }
   }
 
   setFilteringSearchPTable(event) {

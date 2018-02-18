@@ -1,0 +1,17 @@
+.app-delete-astronomical-object {
+  h2 {
+    span {
+      font-weight: 600;
+    }
+  }
+
+  mat-dialog-actions {
+    .cancel-button {
+      color: #F44336;
+    }
+
+    .agree-button {
+      color: #4CAF50;
+    }
+  }
+}

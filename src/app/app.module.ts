@@ -20,6 +20,8 @@ import { GalaxyComponent } from './pages/home-page/observatory/galaxy/galaxy.com
 import { SpaceSystemComponent } from './pages/home-page/observatory/galaxy/space-system/space-system.component';
 import {DataTableModule, OverlayPanelModule, SharedModule} from 'primeng/primeng';
 import { ModifySpaceObjectComponent } from './pages/home-page/space-objects-list/modify-space-object/modify-space-object.component';
+import { DeleteAstronomicalObjectComponent } from './dialogs/delete-astronomical-object/delete-astronomical-object.component';
+import {DialogService} from './services/dialog.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { ModifySpaceObjectComponent } from './pages/home-page/space-objects-list
     SpaceObjectsListComponent,
     GalaxyComponent,
     SpaceSystemComponent,
-    ModifySpaceObjectComponent
+    ModifySpaceObjectComponent,
+    DeleteAstronomicalObjectComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +50,8 @@ import { ModifySpaceObjectComponent } from './pages/home-page/space-objects-list
     SharedModule,
     OverlayPanelModule
   ],
-  providers: [ApiService, AppComponent],
+  providers: [ApiService, DialogService, AppComponent],
+  entryComponents: [DeleteAstronomicalObjectComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
