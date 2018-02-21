@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../../../services/api.service';
-import {AstronomicalObjectType, SystemObjectType} from '../../../../types/types';
+import {SystemObjectType} from '../../../../types/types';
 import {GalaxyModel} from '../../../../models/galaxy.model';
 import {SpaceSystemModel} from '../../../../models/space-system.model';
 import {AppComponent} from '../../../../app.component';
@@ -57,5 +57,4 @@ export class GalaxyComponent implements OnInit {
   goToSystem() {
     this.router.navigate([`/observatory/galaxy/${this.selectedGalaxy.id}/system/${this.selectedSystem.id}`]);
   }
-
 }

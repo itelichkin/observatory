@@ -16,7 +16,6 @@ export class PlanetoidModel extends AstronomicalObjectModel {
     this._parentObject = parentObject;
   }
 
-
   addSatelliteObject(satellite: PlanetoidModel) {
     const newSat = new PlanetoidModel(satellite.id, satellite.name, satellite.weight, satellite.speed,
       satellite.discoverer, satellite.position, satellite.size, satellite.imageName, satellite.parentObject);

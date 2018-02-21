@@ -46,5 +46,4 @@ export class GalaxyModel extends AstronomicalObjectModel {
   get thickness() {
     return this._thickness;
   }
-
 }

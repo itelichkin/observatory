@@ -27,6 +27,4 @@ export class StarModel extends PlanetoidModel {
       this.addSatelliteObject(planet);
     });
   }
-
-
 }

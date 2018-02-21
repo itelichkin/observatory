@@ -102,5 +102,4 @@ export class SpaceSystemModel extends AstronomicalObjectModel {
   get onMove() {
     return this._onMove;
   }
-
 }

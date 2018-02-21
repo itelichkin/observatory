@@ -1,8 +1,8 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../services/api.service';
-import {AstronomicalObjectType, GalaxyObjectType, UniverseObjectType} from '../../../types/types';
+import {GalaxyObjectType, UniverseObjectType} from '../../../types/types';
 import {UniverseModel} from '../../../models/universe.model';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AppComponent} from '../../../app.component';
 import {GalaxyModel} from '../../../models/galaxy.model';
 
@@ -44,5 +44,4 @@ export class ObservatoryComponent implements OnInit {
   goToGalaxy() {
     this.router.navigate([`/observatory/galaxy/${this.selectedGalaxy.id}`]);
   }
-
 }

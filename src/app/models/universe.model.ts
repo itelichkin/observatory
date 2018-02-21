@@ -47,6 +47,4 @@ export class UniverseModel extends AstronomicalObjectModel {
   get diameter() {
     return this._diameter;
   }
-
-
 }

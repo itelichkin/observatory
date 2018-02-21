@@ -6,4 +6,14 @@
   h1 {
     margin-bottom: 20px;
   }
+  .cancel-button {
+    color: #F44336;
+  }
+  .submit-button {
+    color: #4CAF50;
+  }
+
+  button:disabled {
+    color: #BDBDBD;
+  }
 }

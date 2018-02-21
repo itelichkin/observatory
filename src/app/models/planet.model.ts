@@ -1,5 +1,3 @@
-import {AstronomicalObjectModel} from './astronomical-object.model';
-import {StarModel} from './star.model';
 import {PlanetoidModel} from './planetoid.model';
 import {SatelliteModel} from './satellite.model';
 
@@ -27,7 +25,6 @@ export class PlanetModel extends PlanetoidModel {
     this._orbitSpeedIndex = 4;
     this.setPosition();
     this.orbitPosition();
-
   }
 
   orbitPosition() {
@@ -85,6 +82,4 @@ export class PlanetModel extends PlanetoidModel {
   get isPlanet() {
     return this._isPlanet;
   }
-
-
 }

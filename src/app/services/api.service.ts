@@ -371,9 +371,9 @@ export class ApiService {
 
   saveObjectById(data) {
     const allObjects: any[] = JSON.parse(this.local.getItem(SPACE_OBJECT_KEY));
-    allObjects.some((obj) => {
+    allObjects.some((obj, index) => {
       if (data.id === obj.id) {
-        obj = data;
+        allObjects[index] = data;
         return true;
       }
     });

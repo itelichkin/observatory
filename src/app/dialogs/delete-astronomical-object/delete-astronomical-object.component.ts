@@ -11,11 +11,10 @@ export class DeleteAstronomicalObjectComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<DeleteAstronomicalObjectComponent>,
               @Inject(MAT_DIALOG_DATA) private data: { name: string }) {
-    console.log(data)
-    this.objectName = data.name;
   }
 
   ngOnInit() {
+    this.objectName = this.data.name;
   }
 
   closeDialog() {

@@ -29,7 +29,7 @@ export class ModifySpaceObjectComponent implements OnInit {
         }
         this.modifyAction = params.action ? 'Edit space object' : 'New space object';
       }
-      });
+    });
   }
 
   async ngOnInit() {
@@ -45,6 +45,7 @@ export class ModifySpaceObjectComponent implements OnInit {
   }
 
   async submitForm() {
+
     const newDataProvider = {
       name: this.formSpaceObject.get('name').value,
       type: this.formSpaceObject.get('type').value,
@@ -62,6 +63,4 @@ export class ModifySpaceObjectComponent implements OnInit {
   cancelForm() {
     this.router.navigate(['/space-objects-list']);
   }
-
-
 }

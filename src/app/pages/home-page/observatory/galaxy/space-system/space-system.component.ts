@@ -5,9 +5,6 @@ import {SpaceSystemModel} from '../../../../../models/space-system.model';
 import {AppComponent} from '../../../../../app.component';
 import {ApiService} from '../../../../../services/api.service';
 import {PlanetModel} from '../../../../../models/planet.model';
-import {AstronomicalObjectType} from '../../../../../types/types';
-import {StarModel} from '../../../../../models/star.model';
-import {SatelliteModel} from '../../../../../models/satellite.model';
 
 @Component({
   selector: 'app-space-system',
@@ -88,5 +85,4 @@ export class SpaceSystemComponent implements OnInit, OnDestroy {
     this.app.selectedSystem.destroySystem();
     this.app.selectedSystem = null;
   }
-
 }
