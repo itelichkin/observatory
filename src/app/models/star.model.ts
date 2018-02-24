@@ -1,6 +1,6 @@
 import {PlanetModel} from './planet.model';
-import {AstronomicalObjectModel} from './astronomical-object.model';
 import {PlanetoidModel} from './planetoid.model';
+import {PlanetoidObjectType} from '../types/types';
 
 export class StarModel extends PlanetoidModel {
   private _isStar: boolean;
@@ -16,10 +16,10 @@ export class StarModel extends PlanetoidModel {
     return this._isStar;
   }
 
-  addSatelliteObject(planet) {
+  addSatelliteObject(planet: PlanetoidObjectType) {
     this.putSatelliteObject = new PlanetModel(planet.id, planet.name, planet.weight, planet.speed,
       planet.discoverer, planet.position, planet.size, planet.imageName, this,
-      planet.rings, planet.parentRadius, planet.angle, planet.orbitSpeed);
+      planet.rings, planet.parentRadius, planet.angle, planet.orbitSpeed, planet.observers);
   }
 
   addAllSatelliteObjects(planets) {

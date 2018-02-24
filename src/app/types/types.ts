@@ -1,10 +1,10 @@
 export interface AstronomicalObjectType {
-  id: number;
-  name: string;
-  weight: number;
-  speed: number;
-  discoverer: string;
-  position: {
+  id?: number;
+  name?: string;
+  weight?: number;
+  speed?: number;
+  discoverer?: string;
+  position?: {
     x: number,
     y: number
   };
@@ -12,7 +12,7 @@ export interface AstronomicalObjectType {
     width: number,
     height: number
   };
-  type: string;
+  type?: string;
   isUniverse?: boolean;
   isGalaxy?: boolean;
   isSystem?: boolean;
@@ -48,15 +48,27 @@ export interface SystemObjectType extends AstronomicalObjectType {
 
 export interface PlanetoidObjectType extends AstronomicalObjectType {
   systemId?: number;
+  planetId?: number;
   parentRadius?: number;
   angle?: number;
   orbitSpeed?: number;
-}
+  observers?: number[];
+  rings?;
+ }
 
 export interface GlobalAstronomicalObjectType extends PlanetoidObjectType, GalaxyObjectType, UniverseObjectType, SystemObjectType {
 
 }
 
+export interface ObserverType {
+  id: number;
+  name: string;
+  observablePlanets: number[];
+}
+export interface DropdownData {
+  label: string;
+  value: number;
+}
 
 
 

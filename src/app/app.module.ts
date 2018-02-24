@@ -18,7 +18,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {CommonModule} from '@angular/common';
 import { GalaxyComponent } from './pages/home-page/observatory/galaxy/galaxy.component';
 import { SpaceSystemComponent } from './pages/home-page/observatory/galaxy/space-system/space-system.component';
-import {DataTableModule, OverlayPanelModule, SharedModule} from 'primeng/primeng';
+import {DataTableModule, DropdownModule, OverlayPanelModule, SharedModule} from 'primeng/primeng';
 import { ModifySpaceObjectComponent } from './pages/home-page/space-objects-list/modify-space-object/modify-space-object.component';
 import { DeleteAstronomicalObjectComponent } from './dialogs/delete-astronomical-object/delete-astronomical-object.component';
 import {DialogService} from './services/dialog.service';
@@ -48,7 +48,8 @@ import {DialogService} from './services/dialog.service';
     ObservatoryMaterialModule,
     DataTableModule,
     SharedModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    DropdownModule
   ],
   providers: [ApiService, DialogService, AppComponent],
   entryComponents: [DeleteAstronomicalObjectComponent],

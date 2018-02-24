@@ -12,11 +12,11 @@ export class AstronomicalObjectModel {
               position: { x: number, y: number }, size, imageName) {
     this._id = id;
     this._name = name;
-    this._weight = weight;
-    this._speed = speed;
+    this._weight = weight || null;
+    this._speed = speed || null;
     this._discoverer = discoverer;
-    this._position = position;
-    this._size = size;
+    this._position = position || null;
+    this._size = size || null;
     this._imageName = imageName;
   }
   get id() {

@@ -5,6 +5,8 @@ import {SpaceSystemModel} from '../../../../../models/space-system.model';
 import {AppComponent} from '../../../../../app.component';
 import {ApiService} from '../../../../../services/api.service';
 import {PlanetModel} from '../../../../../models/planet.model';
+import {ObserverModel} from '../../../../../models/observer.model';
+import {ObserverType} from '../../../../../types/types';
 
 @Component({
   selector: 'app-space-system',
@@ -19,6 +21,8 @@ export class SpaceSystemComponent implements OnInit, OnDestroy {
   isDataLoading: boolean;
   orbitSpeed: number;
   orbitSpeedArray: { key: number, value: string }[];
+  observers: ObserverType[];
+  selectedObserver: ObserverType;
 
   constructor(private route: ActivatedRoute,
               private app: AppComponent,
@@ -60,6 +64,12 @@ export class SpaceSystemComponent implements OnInit, OnDestroy {
       {key: 32, value: '8'},
     ];
     this.orbitSpeed = 4;
+    const observers = await this.apiService.getAllObservers();
+    this.observers = [];
+    observers.forEach((x: ObserverType) => {
+      const obs = new ObserverModel(x.id, x.name, x.observablePlanets);
+      this.observers.push(obs);
+    });
     this.isDataLoading = false;
   }
 
@@ -69,6 +79,7 @@ export class SpaceSystemComponent implements OnInit, OnDestroy {
 
   toMove() {
     this.selectedSystem.onMove ? this.selectedSystem.stopOrbitMoving() : this.selectedSystem.startOrbitMoving();
+
   }
 
   goToGalaxy() {
@@ -84,5 +95,11 @@ export class SpaceSystemComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.app.selectedSystem.destroySystem();
     this.app.selectedSystem = null;
+  }
+
+  setPlanetToObserver() {
+    if (this.selectedSpaceObject) {
+      const result = this.apiService.setObservedPlanet(this.selectedObserver.id, this.selectedSpaceObject);
+    }
   }
 }

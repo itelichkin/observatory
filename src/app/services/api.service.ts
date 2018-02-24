@@ -1,12 +1,16 @@
 import {Injectable} from '@angular/core';
 import {
-  AstronomicalObjectType, GalaxyObjectType, GlobalAstronomicalObjectType,
+  AstronomicalObjectType, GalaxyObjectType, GlobalAstronomicalObjectType, PlanetoidObjectType,
   SystemObjectType
 } from '../types/types';
 import {GalaxyModel} from '../models/galaxy.model';
+import {PlanetModel} from '../models/planet.model';
 
 const SPACE_OBJECT_KEY = 'SPACE_OBJECTS';
 const SPACE_OBJECT_ID_KEY = 'SPACE_OBJECTS_ID';
+const OBSERVER_KEY = 'OBSERVERS';
+const OBSERVER_ID_KEY = 'OBSERVERS_ID';
+
 
 @Injectable()
 export class ApiService {
@@ -358,6 +362,12 @@ export class ApiService {
       orbitSpeed: 60148
     }
   ];
+  observers = [
+    {id: 1, name: 'Ukraine', observablePlanets: [10, 11, 14, 15]},
+    {id: 2, name: 'USA', observablePlanets: [14, 15, 16]},
+    {id: 3, name: 'CANADA', observablePlanets: [11]},
+    {id: 4, name: 'France', observablePlanets: [10]},
+  ];
   local = window.localStorage;
 
   constructor() {
@@ -366,6 +376,12 @@ export class ApiService {
       this.local.setItem(SPACE_OBJECT_KEY, JSON.stringify(this.globalAstronomicalObjects));
       const id = this.globalAstronomicalObjects[this.globalAstronomicalObjects.length - 1].id;
       this.local.setItem(SPACE_OBJECT_ID_KEY, JSON.stringify(id));
+    }
+    const allObservers = JSON.parse(this.local.getItem(OBSERVER_KEY));
+    if (!allObservers) {
+      this.local.setItem(OBSERVER_KEY, JSON.stringify(this.observers));
+      const id = this.globalAstronomicalObjects[this.observers.length - 1].id;
+      this.local.setItem(OBSERVER_ID_KEY, JSON.stringify(id));
     }
   }
 
@@ -466,6 +482,30 @@ export class ApiService {
     return await null;
   }
 
+  async getSpaceObjectInfoById(id: number): Promise<any> {
+    const obj = await this.getObjectById(id);
+    let system;
+    if (obj.isPlanet) {
+      system = await this.getSystemById(obj.systemId);
+      obj['galaxyId'] = system.galaxyId;
+    }
+    return obj;
+  }
+
+  async getAllSystems(): Promise<any> {
+    const all = await this.getAllObjects();
+    return all.filter((x) => {
+      return x.isSystem;
+    });
+  }
+
+  async getAllGalaxies(): Promise<any> {
+    const all = await this.getAllObjects();
+    return all.filter((x) => {
+      return x.isGalaxy;
+    });
+  }
+
   private async _getUniverse() {
     let universe;
     const allObj = this.getAllObjects();
@@ -553,6 +593,35 @@ export class ApiService {
 
   private setPositionY() {
     return Math.floor(Math.random() * (500 - 10)) + 10;
+  }
+
+  getAllObservers() {
+    return JSON.parse(this.local.getItem(OBSERVER_KEY));
+  }
+
+  setObservedPlanet(observerId: number, planet: PlanetModel) {
+    const all = JSON.parse(this.local.getItem(OBSERVER_KEY));
+    all.forEach((obs) => {
+      if (obs.id === observerId) {
+        let exist = false;
+        obs.observablePlanets.some((id) => {
+          if (id === planet.id) {
+            return exist = true;
+          }
+        });
+        if (!exist) {
+          obs.observablePlanets.push(planet.id);
+          const obj = this.getObjectById(planet.id);
+          if (obj.observers) {
+            obj.observers.push(observerId);
+          } else {
+            obj['observers'] = [observerId];
+          }
+          this.editSpaceObject(obj);
+        }
+      }
+    });
+    return true;
   }
 
 }

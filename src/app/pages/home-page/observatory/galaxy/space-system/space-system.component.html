@@ -51,14 +51,20 @@
         <div *ngIf="selectedSpaceObject.isPlanet">
           <p class="description"><span class="title-name">Number of rings: </span>{{selectedSpaceObject.rings}}</p>
         </div>
-       <!-- <div *ngIf="selectedSpaceObject.isPlanet">
-          <p class="description"><span class="title-name">Number of rings: </span>{{selectedSpaceObject.rings}}</p>
-        </div>-->
       </div>
       <div class="action-button-container">
         <button mat-icon-button class="galaxy-go-to-system" matTooltip="Go to {{selectedGalaxy?.name}}" (click)="goToGalaxy()">
           <i class="fas fa-chevron-circle-left"></i>
         </button>
+      </div>
+      <div>
+        <mat-form-field class="object-speed">
+          <mat-select [(value)]="selectedObserver" placeholder="Put an observer" (change)="setPlanetToObserver()" [disabled]="!selectedSpaceObject">
+            <mat-option *ngFor="let observer of observers" [value]="observer">
+              {{ observer.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </mat-drawer>
 
