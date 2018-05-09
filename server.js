@@ -1,9 +1,9 @@
-const express = require('express');
+const express = new require('express');
 const http = require('http');
 const path = require('path');
 const config = require('config');
-const log = require('lib/log')(module);
-const mongoose = require('lib/mongoose');
+const log = new require('./src/server/lib/log')(module);
+const mongoose = require('./src/server/lib/mongoose');
 const HttpError = require('error').HttpError;
 
 const app = express();
@@ -20,7 +20,7 @@ app.use(express.bodyParser());
 
 app.use(express.cookieParser());
 
-const sessionStore = require('lib/sessionStore');
+const sessionStore = require('./src/server/lib/sessionStore');
 
 app.use(express.session({
   secret: config.get('session:secret'),
@@ -29,12 +29,12 @@ app.use(express.session({
   store: sessionStore
 }));
 
-app.use(require('middleware/sendHttpError'));
-app.use(require('middleware/loadUser'));
+app.use(require('./src/server/middleware/sendHttpError'));
+app.use(require('./src/server/middleware/loadUser'));
 
 app.use(app.router);
 
-require('routes')(app);
+require('./src/server/routes')(app);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -57,11 +57,7 @@ app.use(function(err, req, res, next) {
   }
 });
 
-
 const server = http.createServer(app);
 server.listen(config.get('port'), function(){
   log.info('Express server listening on port ' + config.get('port'));
 });
-
-const io = require('./socket')(server);
-app.set('io', io);

@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
+import {forwardRef, Inject, Injectable} from '@angular/core';
 import {
   AstronomicalObjectType, GalaxyObjectType, GlobalAstronomicalObjectType, PlanetoidObjectType,
   SystemObjectType
 } from '../types/types';
 import {GalaxyModel} from '../models/galaxy.model';
 import {PlanetModel} from '../models/planet.model';
+import {HttpClientService} from './http-client.service';
 
 const SPACE_OBJECT_KEY = 'SPACE_OBJECTS';
 const SPACE_OBJECT_ID_KEY = 'SPACE_OBJECTS_ID';
@@ -370,7 +371,7 @@ export class ApiService {
   ];
   local = window.localStorage;
 
-  constructor() {
+  constructor(@Inject(forwardRef(() => HttpClientService)) private httpClientService: HttpClientService) {
     const allObjects = JSON.parse(this.local.getItem(SPACE_OBJECT_KEY));
     if (!allObjects) {
       this.local.setItem(SPACE_OBJECT_KEY, JSON.stringify(this.globalAstronomicalObjects));
@@ -385,7 +386,7 @@ export class ApiService {
     }
   }
 
-  saveObjectById(data) {
+  private saveObjectById(data) {
     const allObjects: any[] = JSON.parse(this.local.getItem(SPACE_OBJECT_KEY));
     allObjects.some((obj, index) => {
       if (data.id === obj.id) {
@@ -396,11 +397,11 @@ export class ApiService {
     this.local.setItem(SPACE_OBJECT_KEY, JSON.stringify(allObjects));
   }
 
-  getAllObjects() {
+  private getAllObjects() {
     return JSON.parse(this.local.getItem(SPACE_OBJECT_KEY));
   }
 
-  getObjectById(id: number) {
+  private getObjectById(id: number) {
     let result;
     const allObjects: any[] = JSON.parse(this.local.getItem(SPACE_OBJECT_KEY));
     allObjects.some((obj) => {
@@ -412,66 +413,64 @@ export class ApiService {
     return result;
   }
 
-  async getAllSpaceObjects() {
-    const result = this.getAllObjects();
+  async getAllSpaceObjects(): Promise<any> {
+    const result = await this.httpClientService.get('/space-objects');
     return result;
   }
 
   async getSpaceObjectById(id: number) {
-    return this.getObjectById(id);
+    const result = await this.httpClientService.get(`/space-object/${id}`);
+    return result;
   }
 
   async createNewSpaceObject(data) {
-    const allObj = this.getAllObjects();
-    data['id'] = JSON.parse(this.local.getItem(SPACE_OBJECT_ID_KEY)) + 1;
-    allObj.push(data);
-    this.local.setItem(SPACE_OBJECT_ID_KEY, JSON.stringify(data['id']));
-    this.local.setItem(SPACE_OBJECT_KEY, JSON.stringify(allObj));
-    return true;
+    const result = await this.httpClientService.post(`/space-object`, data);
+    return result;
   }
 
   async editSpaceObject(data) {
-    this.saveObjectById(data);
-    return true;
+    const result = await this.httpClientService.get(`/space-object/${data.id}`, data);
+    return result;
   }
 
   async deleteSpaceObject(id: number) {
-    const allObj = this.getAllObjects();
-    allObj.some((obj, index) => {
-      if (obj.id === id) {
-        allObj.splice(index, 1);
-        return true;
-      }
-    });
-    this.local.setItem(SPACE_OBJECT_KEY, JSON.stringify(allObj));
+    const result = await this.httpClientService.delete(`/space-object/${id}`);
+    return result;
   }
 
   async getUniverse(): Promise<AstronomicalObjectType> {
-    return this._getUniverse();
+    const result = await this.httpClientService.get('/universe');
+    return result;
   }
 
   async getGalaxies(): Promise<Array<GalaxyObjectType>> {
-    return this._getGalaxies();
+    const result = await this.httpClientService.get('/galaxies');
+    return result;
   }
 
   async getGalaxyById(galaxyId: number): Promise<GalaxyModel> {
-    return await this._getGalaxyById(galaxyId);
+    const result = await this.httpClientService.get(`/galaxies/${galaxyId}`);
+    return result;
   }
 
   async getSpaceSystems(galaxyId: number): Promise<SystemObjectType[]> {
-    return this._getSpaceSystems(galaxyId);
+    const result = await this.httpClientService.get(`/galaxies/${galaxyId}/systems`);
+    return result;
   }
 
   async getSystemById(systemId: number): Promise<any> {
-    return await this._getSystemById(systemId);
+    const result = await this.httpClientService.get(`/galaxies/${systemId}`);
+    return result;
   }
 
   async getCentralStar(systemId: number) {
-    return await this._getCentralStar(systemId);
+    const result = await this.httpClientService.get(`/galaxies/${systemId}/central-star`);
+    return result;
   }
 
   async getSpacePlanets(systemId: number): Promise<any> {
-    return await this._getSpacePlanets(systemId);
+    const result = await this.httpClientService.get(`/galaxies/${systemId}/planets`);
+    return result;
   }
 
   async getParentStar(): Promise<any> {
@@ -483,27 +482,18 @@ export class ApiService {
   }
 
   async getSpaceObjectInfoById(id: number): Promise<any> {
-    const obj = await this.getObjectById(id);
-    let system;
-    if (obj.isPlanet) {
-      system = await this.getSystemById(obj.systemId);
-      obj['galaxyId'] = system.galaxyId;
-    }
-    return obj;
+    const result = await this.httpClientService.get(`/space-object/${id}`);
+    return result;
   }
 
   async getAllSystems(): Promise<any> {
-    const all = await this.getAllObjects();
-    return all.filter((x) => {
-      return x.isSystem;
-    });
+    const result = await this.httpClientService.get(`/systems`);
+    return result;
   }
 
   async getAllGalaxies(): Promise<any> {
-    const all = await this.getAllObjects();
-    return all.filter((x) => {
-      return x.isGalaxy;
-    });
+    const result = await this.httpClientService.get(`/galaxies`);
+    return result;
   }
 
   private async _getUniverse() {

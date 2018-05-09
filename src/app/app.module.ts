@@ -22,6 +22,18 @@ import {DataTableModule, DropdownModule, OverlayPanelModule, SharedModule} from 
 import { ModifySpaceObjectComponent } from './pages/home-page/space-objects-list/modify-space-object/modify-space-object.component';
 import { DeleteAstronomicalObjectComponent } from './dialogs/delete-astronomical-object/delete-astronomical-object.component';
 import {DialogService} from './services/dialog.service';
+import {AuthTokenService} from './services/auth-token.service';
+import {ErrorService} from './services/error.service';
+import {HeadersService} from './services/headers.service';
+import {HttpClientService} from './services/http-client.service';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HeaderInterceptor} from './interceptor/header.interceptor';
+
+const HttpInterceptor = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: HeaderInterceptor,
+  multi: true,
+};
 
 @NgModule({
   declarations: [
@@ -49,9 +61,10 @@ import {DialogService} from './services/dialog.service';
     DataTableModule,
     SharedModule,
     OverlayPanelModule,
-    DropdownModule
+    DropdownModule,
+    HttpClientModule
   ],
-  providers: [ApiService, DialogService, AppComponent],
+  providers: [ApiService, DialogService, AppComponent, AuthTokenService, ErrorService, HeadersService, HttpClientService, HttpInterceptor],
   entryComponents: [DeleteAstronomicalObjectComponent],
   bootstrap: [AppComponent]
 })
