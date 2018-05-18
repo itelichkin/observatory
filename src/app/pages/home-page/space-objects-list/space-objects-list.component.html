@@ -29,11 +29,11 @@
           <ng-template let-object="rowData" let-index="rowIndex" pTemplate="body">
             <div class="actions">
               <button mat-icon-button matTooltip="Edit"
-                      (click)="editSpaceObject(object.id)">
+                      (click)="editSpaceObject(object.id, object.type)">
                 <mat-icon class="edit-space-object">border_color</mat-icon>
               </button>
               <button mat-icon-button matTooltip="Delete"
-                      (click)="deleteSpaceObject(object.id, index, object.name)">
+                      (click)="deleteSpaceObject(object.id, object.type, index, object.name)">
                 <mat-icon class="delete-space-object">delete</mat-icon>
               </button>
             </div>

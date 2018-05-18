@@ -14,7 +14,7 @@ export class SpaceSystemModel extends AstronomicalObjectModel {
   private _cometAmount: string;
   private _onMove: boolean;
 
-  constructor(id: number, name: string, weight: number, speed: number, discoverer: string,
+  constructor(id: string, name: string, weight: number, speed: number, discoverer: string,
               position: { x: number, y: number }, size: { width: number, height: number },
               imageName, parentGalaxy, age: string, starsAmount: string, planetsAmount: string,
               dwarfPlanetAmount: string, satellitesAmount: string, smallBodyAmount: string, cometAmount: string) {

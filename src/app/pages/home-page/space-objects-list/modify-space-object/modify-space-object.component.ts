@@ -11,7 +11,8 @@ import {GalaxyObjectType, GlobalAstronomicalObjectType, SystemObjectType} from '
   styleUrls: ['./modify-space-object.component.scss']
 })
 export class ModifySpaceObjectComponent implements OnInit {
-  spaceObjectId: number;
+  spaceObjectId: string;
+  spaceObjectType: string;
   modifyAction: string;
   selectedSpaceObject: GlobalAstronomicalObjectType;
   formSpaceObject: FormGroup;
@@ -28,7 +29,10 @@ export class ModifySpaceObjectComponent implements OnInit {
     this.route.params.subscribe((params: any) => {
       if (params) {
         if (params.id) {
-          this.spaceObjectId = +params.id;
+          this.spaceObjectId = params.id;
+        }
+        if (params.type) {
+          this.spaceObjectType = params.type;
         }
         this.modifyAction = params.action ? 'Edit space object' : 'New space object';
       }
@@ -40,16 +44,14 @@ export class ModifySpaceObjectComponent implements OnInit {
       this.selectedSpaceObject = {};
       this.createNewForm();
     } else {
-      this.selectedSpaceObject = await this.apiService.getSpaceObjectInfoById(this.spaceObjectId);
+      this.selectedSpaceObject = await this.apiService.getSpaceObjectById(this.spaceObjectType, this.spaceObjectId);
       this.createEditForm();
-
     }
 
     this.systemArray = await this.apiService.getAllSystems();
     this.systemArrayFiltered = this.systemArray;
     this.galaxyArray = await this.apiService.getAllGalaxies();
     this.typeArray = ['Galaxy', 'System', 'Star', 'Planet'];
-    console.log(this.selectedSpaceObject)
   }
 
   createNewForm() {
@@ -102,6 +104,7 @@ export class ModifySpaceObjectComponent implements OnInit {
       }),
       discoverer: new FormControl({value: this.selectedSpaceObject.discoverer || '', disabled: false}),
     });
+    console.log(this.formSpaceObject)
   }
 
   setGalaxy() {

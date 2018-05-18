@@ -1,9 +1,9 @@
 export class ObserverModel {
-  private _id: number;
+  private _id: string;
   private _name: string;
   private _observablePlanets: number[];
 
-  constructor(id: number, name: string, observablePlanets: number[]) {
+  constructor(id: string, name: string, observablePlanets: number[]) {
     this._id = id;
     this._name = name;
     this._observablePlanets = observablePlanets || [];

@@ -8,7 +8,7 @@ export class PlanetoidModel extends AstronomicalObjectModel {
   private _satelliteObjects: Array<any>;
   private _parentObject: StarModel | PlanetModel | SatelliteModel;
 
-  constructor(id: number, name: string, weight: number, speed: number,
+  constructor(id: string, name: string, weight: number, speed: number,
               discoverer: string, position: { x: number, y: number }, size: { width: number, height: number },
               imageName, parentObject: StarModel | PlanetModel | SatelliteModel) {
     super(id, name, weight, speed, discoverer, position, size, imageName);

@@ -10,12 +10,12 @@ export class PlanetModel extends PlanetoidModel {
   private _onMove: boolean;
   private _orbitSpeed: number;
   protected _intervalWatcher;
-  private _observers: number[];
+  private _observers: string[];
 
-  constructor(id: number, name: string, weight: number, speed: number,
+  constructor(id: string, name: string, weight: number, speed: number,
               discoverer: string, position: { x: number, y: number }, size: { width: number, height: number },
               imageName, parentObject: any, rings: number, parentRadius: number, angle: number,
-              orbitSpeed: number, observers: number[]) {
+              orbitSpeed: number, observers: string[]) {
     super(id, name, weight, speed, discoverer, position, size, imageName, parentObject);
     this._rings = rings;
     this._angle = angle;
@@ -89,7 +89,7 @@ export class PlanetModel extends PlanetoidModel {
     return this._observers;
   }
 
-  addObserver(id: number) {
+  addObserver(id: string) {
     this._observers.push(id);
   }
 }

@@ -1,5 +1,7 @@
+import {setPositionX, setPositionY} from '../utils/position';
+
 export class AstronomicalObjectModel {
-  private _id: number;
+  private _id: string;
   private _name: string;
   private _weight: number;
   private _speed: number;
@@ -8,14 +10,17 @@ export class AstronomicalObjectModel {
   private _size: { width: number, height: number };
   private _imageName: string;
 
-  constructor(id: number, name: string, weight: number, speed: number, discoverer: string,
+  constructor(id: string, name: string, weight: number, speed: number, discoverer: string,
               position: { x: number, y: number }, size, imageName) {
     this._id = id;
     this._name = name;
     this._weight = weight || null;
     this._speed = speed || null;
     this._discoverer = discoverer;
-    this._position = position || null;
+    this._position = {
+      x: position.x || setPositionX(),
+      y: position.y || setPositionY()
+    } || null;
     this._size = size || null;
     this._imageName = imageName;
   }

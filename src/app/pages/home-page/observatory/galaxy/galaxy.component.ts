@@ -13,7 +13,7 @@ import {UniverseModel} from '../../../../models/universe.model';
   styleUrls: ['./galaxy.component.scss']
 })
 export class GalaxyComponent implements OnInit {
-  galaxyId: number;
+  galaxyId: string;
   selectedGalaxy: GalaxyModel;
   selectedSystem: SpaceSystemModel;
   universe: UniverseModel;
@@ -25,7 +25,7 @@ export class GalaxyComponent implements OnInit {
               private app: AppComponent) {
     this.route.params.subscribe((param) => {
       if (param['id']) {
-        this.galaxyId = +param['id'];
+        this.galaxyId = param['id'];
       }
     });
   }
@@ -38,7 +38,7 @@ export class GalaxyComponent implements OnInit {
       this.selectedGalaxy = this.app.selectedGalaxy;
     }
     this.universe = this.app.universe;
-    const spaceSystems: SystemObjectType[] = await this.apiService.getSpaceSystems(this.galaxyId);
+    const spaceSystems: SystemObjectType[] = await this.apiService.getSystemsByGalaxyId(this.galaxyId);
     spaceSystems.forEach((system) => {
       this.selectedGalaxy.addSpaceSystems(system);
     });

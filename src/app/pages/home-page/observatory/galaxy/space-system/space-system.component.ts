@@ -14,7 +14,7 @@ import {ObserverType} from '../../../../../types/types';
   styleUrls: ['./space-system.component.scss']
 })
 export class SpaceSystemComponent implements OnInit, OnDestroy {
-  systemId: number;
+  systemId: string;
   selectedGalaxy: GalaxyModel;
   selectedSystem: SpaceSystemModel;
   selectedSpaceObject: PlanetModel;
@@ -30,7 +30,7 @@ export class SpaceSystemComponent implements OnInit, OnDestroy {
               private router: Router) {
     this.route.params.subscribe((param) => {
       if (param['id']) {
-        this.systemId = +param['id'];
+        this.systemId = param['id'];
       }
     });
   }
@@ -47,13 +47,15 @@ export class SpaceSystemComponent implements OnInit, OnDestroy {
       return;
     }
     this.selectedGalaxy = this.app.selectedGalaxy;
-    const star = await this.apiService.getCentralStar(this.systemId);
-    if (!star) {
+    const stars = await this.apiService.getCentralStarsBySystemId(this.systemId);
+    if (!stars || !stars.length) {
       this.isDataLoading = false;
       return;
     }
-    this.selectedSystem.addCentralStar(star);
-    const spacePlanets = await this.apiService.getSpacePlanets(this.systemId);
+    stars.forEach((star)=>{
+      this.selectedSystem.addCentralStar(star);
+    });
+    const spacePlanets = await this.apiService.getSpacePlanetsBySystemId(this.systemId);
     this.selectedSystem.centralStar.addAllSatelliteObjects(spacePlanets);
     this.orbitSpeedArray = [
       {key: 1, value: '1/4'},
@@ -99,7 +101,7 @@ export class SpaceSystemComponent implements OnInit, OnDestroy {
 
   setPlanetToObserver() {
     if (this.selectedSpaceObject) {
-      const result = this.apiService.setObservedPlanet(this.selectedObserver.id, this.selectedSpaceObject);
+      const result = this.apiService.setObservedPlanet({observerId: this.selectedObserver.id, planetId: this.selectedSpaceObject.id});
     }
   }
 }

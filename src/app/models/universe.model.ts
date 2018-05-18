@@ -10,7 +10,7 @@ export class UniverseModel extends AstronomicalObjectModel {
   private _diameter: string;
 
 
-  constructor(id: number, name: string, weight: number, speed: number,
+  constructor(id: string, name: string, weight: number, speed: number,
               discoverer: string, position: { x: number, y: number },
               size: { width: number, height: number }, galaxiesAmount: number, age: string, averageTemperature: string,
               diameter: string) {

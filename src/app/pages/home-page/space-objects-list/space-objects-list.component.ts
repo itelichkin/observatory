@@ -51,7 +51,6 @@ export class SpaceObjectsListComponent implements OnInit {
       };
       result.push(newItem);
     });
-    console.log(result)
     return result;
   }
 
@@ -60,16 +59,16 @@ export class SpaceObjectsListComponent implements OnInit {
     this.router.navigate(['space-objects-list', 'new']);
   }
 
-  editSpaceObject(id: number) {
-    this.router.navigate(['space-objects-list', id, 'edit']);
+  editSpaceObject(id: number, type: string) {
+    this.router.navigate(['space-objects-list', type, id, 'edit']);
   }
 
-  async deleteSpaceObject(id: number, index, name: string) {
+  async deleteSpaceObject(id: string, type: string, index, name: string) {
     const result = await this.dialogService.deleteDialog(name);
     if (result) {
       this.spaceObjectData.splice(index, 1);
       this.spaceObjectData = [...this.spaceObjectData];
-      await this.apiService.deleteSpaceObject(id);
+      await this.apiService.deleteSpaceObject(id, type);
     }
   }
 
@@ -77,7 +76,7 @@ export class SpaceObjectsListComponent implements OnInit {
     this.filteringSearchPTable = event.filteredValue;
   }
 
-  updateObservers(observers: number[]) {
+  updateObservers(observers: string[]) {
     if (!observers || !observers.length) {
       return '';
     }

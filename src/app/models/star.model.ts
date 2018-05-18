@@ -5,7 +5,7 @@ import {PlanetoidObjectType} from '../types/types';
 export class StarModel extends PlanetoidModel {
   private _isStar: boolean;
 
-  constructor(id: number, name: string, weight: number, speed: number,
+  constructor(id: string, name: string, weight: number, speed: number,
               discoverer: string, position: { x: number, y: number }, size: { width: number, height: number },
               imageName, isStar: boolean) {
     super(id, name, weight, speed, discoverer, position, size, imageName, null);

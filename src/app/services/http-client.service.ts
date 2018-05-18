@@ -32,6 +32,15 @@ export class HttpClientService {
     }
   }
 
+  private static toQuery(args: any): string {
+    if (!args) return '';
+    const a = [];
+    Object.keys(args).forEach(x => {
+      a.push(encodeURIComponent(x) + '=' + encodeURIComponent(args[x]));
+    });
+    return a.length ? ('?' + a.join('&')) : '';
+  }
+
   private request(options: ObservatoryHttpRequestOptions) {
 
     const promise = new Promise<any>((resolve) => {
@@ -43,10 +52,12 @@ export class HttpClientService {
   }
 
   public get(url: string, args?: any): Promise<any> {
+    url = url + HttpClientService.toQuery(args);
     return this.request({method: 'get', url: `${environment.apiHost}${url}`});
   }
 
   public delete(url: string, args?: any): Promise<any> {
+    url = url + HttpClientService.toQuery(args);
     return this.request({method: 'delete', url: `${environment.apiHost}${url}`});
   }
 

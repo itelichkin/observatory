@@ -33,7 +33,7 @@ export const routes: Routes = [
     {path: 'observatory/galaxy/:id', component: GalaxyComponent},
     {path: 'observatory/galaxy/:id/system/:id', component: SpaceSystemComponent},
     {path: 'space-objects-list', component: SpaceObjectsListComponent},
-    {path: 'space-objects-list/:id/:action', component: ModifySpaceObjectComponent},
+    {path: 'space-objects-list/:type/:id/:action', component: ModifySpaceObjectComponent},
     {path: 'space-objects-list/:new', component: ModifySpaceObjectComponent},
     {path: '**', component: PageNotFoundComponent}
   ]

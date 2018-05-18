@@ -9,7 +9,7 @@ export class GalaxyModel extends AstronomicalObjectModel {
   private _numberOfStars: string;
   private _thickness: string;
 
-  constructor(id: number, name: string, weight: number, speed: number, discoverer: string,
+  constructor(id: string, name: string, weight: number, speed: number, discoverer: string,
               position: { x: number, y: number }, size: { width: number, height: number }, parentUniverse: UniverseModel, diameter: string,
               numberOfStars: string, thickness: string) {
     super(id, name, weight, speed, discoverer, position, size, null);

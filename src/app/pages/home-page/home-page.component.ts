@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import {ApiService} from '../../services/api.service';
 
 @Component({
   selector: 'app-home-page',
@@ -9,11 +7,9 @@ import {ApiService} from '../../services/api.service';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private api: ApiService) { }
+  constructor() { }
 
-  async ngOnInit() {
-    console.log(await this.api.getUniverse())
-  }
+  ngOnInit() {}
 
 
 }
