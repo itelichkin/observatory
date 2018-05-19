@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AppComponent} from '../../../../app.component';
 import {ApiService} from '../../../../services/api.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {GalaxyObjectType, GlobalAstronomicalObjectType, SystemObjectType} from '../../../../types/types';
+import {setPositionX, setPositionY} from '../../../../utils/position';
 
 @Component({
   selector: 'app-modify-space-object',
@@ -20,9 +20,9 @@ export class ModifySpaceObjectComponent implements OnInit {
   galaxyArray: GalaxyObjectType[];
   systemArray: SystemObjectType[];
   systemArrayFiltered: SystemObjectType[];
+  selectedSystem: SystemObjectType;
 
-  constructor(private app: AppComponent,
-              private apiService: ApiService,
+  constructor(private apiService: ApiService,
               private route: ActivatedRoute,
               private router: Router,
               public formBuilder: FormBuilder) {
@@ -47,17 +47,20 @@ export class ModifySpaceObjectComponent implements OnInit {
       this.selectedSpaceObject = await this.apiService.getSpaceObjectById(this.spaceObjectType, this.spaceObjectId);
       this.createEditForm();
     }
-
     this.systemArray = await this.apiService.getAllSystems();
     this.systemArrayFiltered = this.systemArray;
     this.galaxyArray = await this.apiService.getAllGalaxies();
     this.typeArray = ['Galaxy', 'System', 'Star', 'Planet'];
+    if (this.spaceObjectId && this.selectedSpaceObject.type === 'Star' || this.selectedSpaceObject.type === 'Planet') {
+      this.selectedSystem = this.systemArray.filter((system)=> system.id === this.selectedSpaceObject.systemId)[0];
+      this.formSpaceObject.get('galaxyId').setValue(this.selectedSystem.galaxyId);
+    }
   }
 
   createNewForm() {
     this.formSpaceObject = this.formBuilder.group({
-      name: new FormControl({value: '', disabled: false}),
-      type: new FormControl({value: '', disabled: false}),
+      name: new FormControl({value: '', disabled: false}, [Validators.required]),
+      type: new FormControl({value: '', disabled: false}, [Validators.required]),
       galaxyId: new FormControl({value: null, disabled: false}),
       systemId: new FormControl({value: null, disabled: false}),
       parent_id: new FormControl({value: null, disabled: false}),
@@ -71,21 +74,21 @@ export class ModifySpaceObjectComponent implements OnInit {
   createEditForm() {
     this.formSpaceObject = this.formBuilder.group({
       id: new FormControl({value: this.selectedSpaceObject.id, disabled: false}),
-      name: new FormControl({value: this.selectedSpaceObject.name || '', disabled: false}),
-      type: new FormControl({value: this.selectedSpaceObject.type || '', disabled: false}),
+      name: new FormControl({value: this.selectedSpaceObject.name || '', disabled: false}, [Validators.required]),
+      type: new FormControl({value: this.selectedSpaceObject.type || '', disabled: false}, [Validators.required]),
       galaxyId: new FormControl({
-        value: this.selectedSpaceObject.galaxyId || null,
-        disabled: !this.selectedSpaceObject.type
+        value: this.selectedSpaceObject.galaxyId || '',
+        disabled: this.selectedSpaceObject.type === 'Galaxy'
       }),
       systemId: new FormControl({
         value: this.selectedSpaceObject.systemId || '',
-        disabled: !this.selectedSpaceObject.galaxyId
+        disabled:  (this.selectedSpaceObject.type !== 'Star' &&  this.selectedSpaceObject.type !== 'Planet')
       }),
       parent_id: new FormControl({
         value: this.selectedSpaceObject.type === 'System' ? this.selectedSpaceObject.galaxyId :
           this.selectedSpaceObject.type === 'Planet' ? this.selectedSpaceObject.systemId :
             this.selectedSpaceObject.type === 'Satellite' ? this.selectedSpaceObject.planetId : null,
-        disabled: false
+        disabled: !this.selectedSpaceObject.galaxyId || !this.selectedSpaceObject.systemId
       }),
       parentRadius: new FormControl({
         value: this.selectedSpaceObject.type === 'Planet' ? this.selectedSpaceObject.parentRadius :
@@ -104,7 +107,6 @@ export class ModifySpaceObjectComponent implements OnInit {
       }),
       discoverer: new FormControl({value: this.selectedSpaceObject.discoverer || '', disabled: false}),
     });
-    console.log(this.formSpaceObject)
   }
 
   setGalaxy() {
@@ -118,31 +120,60 @@ export class ModifySpaceObjectComponent implements OnInit {
   setType() {
     const type = this.formSpaceObject.get('type').value;
     if (type === 'Galaxy') {
-      this.formSpaceObject.get('galaxyId').disable();
-      this.formSpaceObject.get('systemId').disable();
-      this.formSpaceObject.get('parentRadius').disable();
-      this.formSpaceObject.get('angle').disable();
-      this.formSpaceObject.get('orbitSpeed').disable();
+      this.disableGalaxy();
+      this.disableSystem();
+      this.disablePlanet();
     } else if (type === 'System') {
-      this.formSpaceObject.get('galaxyId').enable();
-      this.formSpaceObject.get('systemId').disable();
-      this.formSpaceObject.get('parentRadius').disable();
-      this.formSpaceObject.get('angle').disable();
-      this.formSpaceObject.get('orbitSpeed').disable();
+      this.enableGalaxy();
+      this.disableSystem();
+      this.disablePlanet();
     } else if (type === 'Star') {
-      this.formSpaceObject.get('galaxyId').enable();
-      this.formSpaceObject.get('systemId').enable();
-      this.formSpaceObject.get('parentRadius').disable();
-      this.formSpaceObject.get('angle').disable();
-      this.formSpaceObject.get('orbitSpeed').disable();
+      this.enableGalaxy();
+      this.enableSystem();
+      this.disablePlanet();
     } else {
-      this.formSpaceObject.get('galaxyId').enable();
-      this.formSpaceObject.get('systemId').enable();
-      this.formSpaceObject.get('parentRadius').enable();
-      this.formSpaceObject.get('angle').enable();
-      this.formSpaceObject.get('orbitSpeed').enable();
+      this.enableGalaxy();
+      this.enableSystem();
+      this.enablePlanet();
     }
   }
+
+  enableGalaxy() {
+    this.formSpaceObject.get('galaxyId').enable();
+    this.formSpaceObject.get('galaxyId').setValidators([Validators.required]);
+    this.formSpaceObject.get('galaxyId').updateValueAndValidity();
+  }
+
+  disableGalaxy() {
+    this.formSpaceObject.get('galaxyId').disable();
+    this.formSpaceObject.get('galaxyId').clearValidators();
+    this.formSpaceObject.get('galaxyId').updateValueAndValidity();
+  }
+
+  enableSystem() {
+    this.formSpaceObject.get('systemId').enable();
+    this.formSpaceObject.get('systemId').setValidators([Validators.required]);
+    this.formSpaceObject.get('systemId').updateValueAndValidity();
+  }
+
+  disableSystem() {
+    this.formSpaceObject.get('systemId').disable();
+    this.formSpaceObject.get('systemId').clearValidators();
+    this.formSpaceObject.get('systemId').updateValueAndValidity();
+  }
+
+  enablePlanet() {
+    this.formSpaceObject.get('parentRadius').enable();
+    this.formSpaceObject.get('angle').enable();
+    this.formSpaceObject.get('orbitSpeed').enable();
+  }
+
+  disablePlanet() {
+    this.formSpaceObject.get('parentRadius').disable();
+    this.formSpaceObject.get('angle').disable();
+    this.formSpaceObject.get('orbitSpeed').disable();
+  }
+
 
   async submitForm() {
     const newDataProvider = this.selectedSpaceObject || {};
@@ -154,8 +185,8 @@ export class ModifySpaceObjectComponent implements OnInit {
       newDataProvider['weight'] = 6000;
       newDataProvider['speed'] = 6000;
       newDataProvider['position'] = {
-        x: this.setPositionX(),
-        y: this.setPositionY()
+        x: setPositionX(),
+        y: setPositionY()
       };
       newDataProvider['size'] = null;
     }
@@ -195,19 +226,6 @@ export class ModifySpaceObjectComponent implements OnInit {
       newDataProvider['angle'] = +this.formSpaceObject.get('angle').value;
       newDataProvider['orbitSpeed'] = +this.formSpaceObject.get('orbitSpeed').value;
     }
-    if (this.modifyAction === 'Edit space object') {/*
-      newDataProvider['id'] = this.formSpaceObject.get('id').value;
-      newDataProvider['size'] = this.selectedSpaceObject.size;
-      newDataProvider['position'] = this.selectedSpaceObject.position;
-      newDataProvider['weight'] = this.selectedSpaceObject.weight;
-      newDataProvider['speed'] = this.selectedSpaceObject.speed;
-      if (this.selectedSpaceObject.imageName) {
-        newDataProvider['imageName'] = this.selectedSpaceObject.imageName;
-      }
-      if (this.selectedSpaceObject.isSystem) {
-        newDataProvider['isSystem'] = this.formSpaceObject.get('id').value;
-      }*/
-    }
     const result = this.modifyAction === 'Edit space object' ?
       await this.apiService.editSpaceObject(newDataProvider) :
       await this.apiService.createNewSpaceObject(newDataProvider);
@@ -218,11 +236,4 @@ export class ModifySpaceObjectComponent implements OnInit {
     this.router.navigate(['/space-objects-list']);
   }
 
-  private setPositionX() {
-    return Math.floor(Math.random() * (1100 - 300)) + 300;
-  }
-
-  private setPositionY() {
-    return Math.floor(Math.random() * (500 - 10)) + 10;
-  }
 }

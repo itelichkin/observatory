@@ -23,24 +23,24 @@
                        placeholder="Discoverer">
               </mat-input-container>
             </div>
-            <div fxFlex="100" fxLayoutAlign="space-between center" *ngIf="galaxyArray?.length && spaceObjectType !== 'Universe' && spaceObjectType !== 'Galaxy'">
-              <mat-form-field fxFlex="49" *ngIf="systemArray?.length && galaxyArray?.length && (spaceObjectType === 'Planet' || spaceObjectType === 'Star')">
-                <mat-select placeholder="System" formControlName="systemId" >
-                  <mat-option *ngFor="let system of systemArrayFiltered" [value]="system.id" >
-                    <span>{{ system.name }}</span>
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+            <div fxFlex="100" fxLayoutAlign="space-between center" *ngIf="galaxyArray?.length">
               <mat-form-field fxFlex="49" *ngIf="galaxyArray?.length ">
-                <mat-select placeholder="Galaxy" formControlName="galaxyId" (selectionChange)="setGalaxy()">
+                <mat-select placeholder="Galaxy" formControlName="galaxyId" (selectionChange)="setGalaxy()" required>
                   <mat-option *ngFor="let galaxy of galaxyArray" [value]="galaxy.id">
                     {{ galaxy.name }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
+              <mat-form-field fxFlex="49" *ngIf="systemArray?.length && galaxyArray?.length">
+                <mat-select placeholder="System" formControlName="systemId" required>
+                  <mat-option *ngFor="let system of systemArrayFiltered" [value]="system.id" >
+                    <span>{{ system.name }}</span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
             <div fxFlex="100" fxLayoutAlign="space-between center"
-                 *ngIf="(selectedSpaceObject?.isPlanet || selectedSpaceObject?.isSatellite) || !spaceObjectId">
+                 *ngIf="(formSpaceObject.get('type').value === 'Planet' || formSpaceObject.get('type').value === 'Satellite') || !spaceObjectId">
               <mat-input-container fxFlex="32">
                 <input matInput formControlName="parentRadius"
                        placeholder="Parent radius">
