@@ -4,7 +4,7 @@
       <mat-form-field class="select-space-object-container">
         <mat-select [(value)]="selectedSpaceObject" placeholder="Select system">
           <mat-option>None</mat-option>
-          <mat-option *ngFor="let planet of selectedSystem.centralStar.satelliteObjects" [value]="planet">
+          <mat-option *ngFor="let planet of selectedSystem?.centralStar?.satelliteObjects" [value]="planet">
             {{ planet.name}}
           </mat-option>
         </mat-select>
