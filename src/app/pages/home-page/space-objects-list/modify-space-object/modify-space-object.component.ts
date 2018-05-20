@@ -69,7 +69,6 @@ export class ModifySpaceObjectComponent implements OnInit {
     } finally {
       this.isDataLoading = false;
     }
-    console.log(this.formSpaceObject.get('name'))
   }
 
   createNewForm() {
