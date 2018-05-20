@@ -10,6 +10,10 @@
             <mat-input-container fxFlex="100" class="full-width">
               <input matInput placeholder="Name" required formControlName="name">
             </mat-input-container>
+            <div *ngIf="formSpaceObject?.get('name')?.invalid && (formSpaceObject?.get('name')?.touched || formSpaceObject?.get('name')?.dirty)" class="error-text"
+                 fxFlex="100">
+              {{formSpaceObject?.get('name')?.errors?.nameError}}
+            </div>
             <div fxFlex="100" fxLayoutAlign="space-between center">
               <mat-form-field fxFlex="49">
                 <mat-select placeholder="Type" required formControlName="type" (selectionChange)="setType()">
@@ -70,6 +74,6 @@
         </button>
       </div>
     </mat-card-actions>
-
   </mat-card>
 </section>
+<app-spinner *ngIf="isDataLoading"></app-spinner>

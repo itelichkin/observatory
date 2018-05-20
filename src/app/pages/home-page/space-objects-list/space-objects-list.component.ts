@@ -25,21 +25,24 @@ export class SpaceObjectsListComponent implements OnInit {
 
   async ngOnInit() {
     this.isDataLoading = true;
-    this.title = 'List of space objects';
-    this.spaceObjectData = await this.apiService.getAllSpaceObjects();
-    const observers = await this.apiService.getAllObservers();
-    this.observers = [];
-    observers.forEach((x: ObserverType) => {
-      const obs = new ObserverModel(x.id, x.name, x.observablePlanets);
-      this.observers.push(obs);
-    });
-    this.observersDropdownData = this.DropdownDataModify('All', observers);
-    this.spaceObjectData.forEach((obj) => {
-      if (obj.observers && obj.observers.length) {
-        obj['observersUpdated'] = this.updateObservers(obj.observers);
-      }
-    });
-    this.isDataLoading = false;
+    try {
+      this.title = 'List of space objects';
+      this.spaceObjectData = await this.apiService.getAllSpaceObjects();
+      const observers = await this.apiService.getAllObservers();
+      this.observers = [];
+      observers.forEach((x: ObserverType) => {
+        const obs = new ObserverModel(x.id, x.name, x.observablePlanets);
+        this.observers.push(obs);
+      });
+      this.observersDropdownData = this.DropdownDataModify('All', observers);
+      this.spaceObjectData.forEach((obj) => {
+        if (obj.observers && obj.observers.length) {
+          obj['observersUpdated'] = this.updateObservers(obj.observers);
+        }
+      });
+    } finally {
+      this.isDataLoading = false;
+    }
   }
 
   DropdownDataModify(defaultName: string, data: Array<any>): Array<DropdownData> {

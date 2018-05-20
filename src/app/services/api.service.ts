@@ -424,11 +424,22 @@ export class ApiService {
     return JSON.parse(result.body);
   }
 
+  async getAllCentralStars() {
+    const result = await this.httpClientService.get(`/central-stars`);
+    return JSON.parse(result.body);
+  }
+
   async getCentralStarsBySystemId(systemId: string) {
     const options = {id: systemId};
     const result = await this.httpClientService.get(`/system/central-stars`, options);
     return JSON.parse(result.body);
   }
+
+  async getAllPlanets() {
+    const result = await this.httpClientService.get(`/planets`);
+    return JSON.parse(result.body);
+  }
+
 
   async getSpacePlanetsBySystemId(systemId: string): Promise<any> {
     const options = {id: systemId};

@@ -28,6 +28,7 @@ import {HeadersService} from './services/headers.service';
 import {HttpClientService} from './services/http-client.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HeaderInterceptor} from './interceptor/header.interceptor';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 const HttpInterceptor = {
   provide: HTTP_INTERCEPTORS,
@@ -46,7 +47,8 @@ const HttpInterceptor = {
     GalaxyComponent,
     SpaceSystemComponent,
     ModifySpaceObjectComponent,
-    DeleteAstronomicalObjectComponent
+    DeleteAstronomicalObjectComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
