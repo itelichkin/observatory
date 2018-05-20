@@ -1,17 +1,8 @@
 import {forwardRef, Inject, Injectable} from '@angular/core';
 import {
-  AstronomicalObjectType, GalaxyObjectType, GlobalAstronomicalObjectType, PlanetoidObjectType,
-  SystemObjectType
-} from '../types/types';
+  AstronomicalObjectType, GalaxyObjectType, SystemObjectType } from '../types/types';
 import {GalaxyModel} from '../models/galaxy.model';
-import {PlanetModel} from '../models/planet.model';
 import {HttpClientService} from './http-client.service';
-
-const SPACE_OBJECT_KEY = 'SPACE_OBJECTS';
-const SPACE_OBJECT_ID_KEY = 'SPACE_OBJECTS_ID';
-const OBSERVER_KEY = 'OBSERVERS';
-const OBSERVER_ID_KEY = 'OBSERVERS_ID';
-
 
 @Injectable()
 export class ApiService {
@@ -363,13 +354,12 @@ export class ApiService {
       orbitSpeed: 60148
     }
   ];*/
-  observers = [
+ /* observers = [
     {id: 1, name: 'Ukraine', observablePlanets: [10, 11, 14, 15]},
     {id: 2, name: 'USA', observablePlanets: [14, 15, 16]},
     {id: 3, name: 'CANADA', observablePlanets: [11]},
     {id: 4, name: 'France', observablePlanets: [10]},
-  ];
-  local = window.localStorage;
+  ];*/
 
   constructor(@Inject(forwardRef(() => HttpClientService)) private httpClientService: HttpClientService) {
   }
