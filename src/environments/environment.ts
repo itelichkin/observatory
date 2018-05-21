@@ -6,4 +6,6 @@
 export const environment = {
   production: false,
   apiHost: 'https://observatory-server.herokuapp.com'
+  // apiHost: 'http://localhost:3000'
+
 };
