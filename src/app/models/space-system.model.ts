@@ -50,11 +50,13 @@ export class SpaceSystemModel extends AstronomicalObjectModel {
   }
 
   destroySystem() {
-    this.centralStar.satelliteObjects.forEach((planet) => {
-      planet._onMove = false;
-      this._onMove = false;
-      clearInterval(planet._intervalWatcher);
-    });
+    if (this.centralStar) {
+      this.centralStar.satelliteObjects.forEach((planet) => {
+        planet._onMove = false;
+        this._onMove = false;
+        clearInterval(planet._intervalWatcher);
+      });
+    }
   }
 
   setOrbitSpeed(speed: number) {

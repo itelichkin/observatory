@@ -57,6 +57,7 @@ export class ModifySpaceObjectComponent implements OnInit {
         this.createNewForm();
       } else {
         this.selectedSpaceObject = await this.apiService.getSpaceObjectById(this.spaceObjectType, this.spaceObjectId);
+        if (! this.selectedSpaceObject) return;
         this.createEditForm();
       }
       this.typeArray = ['Galaxy', 'System', 'Star', 'Planet'];

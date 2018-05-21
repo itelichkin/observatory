@@ -366,105 +366,105 @@ export class ApiService {
 
   async getAllSpaceObjects(): Promise<any> {
     const result = await this.httpClientService.get('/space-objects');
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : [];
   }
 
   async getSpaceObjectById(type: string, id: string) {
     const options = {id, type};
     const result = await this.httpClientService.get(`/space-object`, options);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : null;
   }
 
   async createNewSpaceObject(data) {
     const result = await this.httpClientService.post(`/space-objects`, data);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : null;
   }
 
   async editSpaceObject(data) {
     const result = await this.httpClientService.post(`/space-object`, data);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : null;
   }
 
   async deleteSpaceObject(id: string, type: string) {
     const options = {id, type};
     const result = await this.httpClientService.delete(`/space-object`, options);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : null;
   }
 
   async getUniverse(): Promise<AstronomicalObjectType> {
     const result = await this.httpClientService.get('/universe');
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : null;
   }
 
   async getGalaxies(): Promise<Array<GalaxyObjectType>> {
     const result = await this.httpClientService.get('/galaxies');
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : [];
   }
 
   async getGalaxyById(galaxyId: string): Promise<GalaxyModel> {
     const options = {id: galaxyId};
     const result = await this.httpClientService.get(`/galaxy`, options);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : null;
   }
 
   async getSystems(): Promise<SystemObjectType[]> {
     const result = await this.httpClientService.get(`/systems`);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : [];
   }
 
   async getSystemsByGalaxyId(galaxyId: string): Promise<SystemObjectType[]> {
     const options = {id: galaxyId};
     const result = await this.httpClientService.get(`/galaxy/systems`, options);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : [];
   }
 
   async getSystemById(systemId: string): Promise<any> {
     const options = {id: systemId};
     const result = await this.httpClientService.get(`/system`, options);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : null;
   }
 
   async getAllCentralStars() {
     const result = await this.httpClientService.get(`/central-stars`);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : [];
   }
 
   async getCentralStarsBySystemId(systemId: string) {
     const options = {id: systemId};
     const result = await this.httpClientService.get(`/system/central-stars`, options);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : [];
   }
 
   async getAllPlanets() {
     const result = await this.httpClientService.get(`/planets`);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : [];
   }
 
 
   async getSpacePlanetsBySystemId(systemId: string): Promise<any> {
     const options = {id: systemId};
     const result = await this.httpClientService.get(`/system/planets`, options);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : [];
   }
 
   async getAllSystems(): Promise<any> {
     const result = await this.httpClientService.get(`/systems`);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : [];
   }
 
   async getAllGalaxies(): Promise<any> {
     const result = await this.httpClientService.get(`/galaxies`);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : [];
   }
 
   async getAllObservers() {
     const result = await this.httpClientService.get(`/observers`);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : [];
   }
 
   async setObservedPlanet(data: {observerId: string, planetId: string}) {
     const result = await this.httpClientService.post(`/observers`, data);
-    return JSON.parse(result.body);
+    return result.body ? JSON.parse(result.body) : null;
   }
 
 }

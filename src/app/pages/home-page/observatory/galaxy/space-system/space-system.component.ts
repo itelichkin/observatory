@@ -95,8 +95,10 @@ export class SpaceSystemComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.app.selectedSystem.destroySystem();
-    this.app.selectedSystem = null;
+    if (this.app.selectedSystem) {
+      this.app.selectedSystem.destroySystem();
+      this.app.selectedSystem = null;
+    }
   }
 
   setPlanetToObserver() {

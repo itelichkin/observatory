@@ -10,7 +10,7 @@
         </mat-select>
       </mat-form-field>
       <div class="speed-action-button">
-        <button mat-raised-button (click)="toMove()"> {{selectedSystem.onMove ? 'STOP' : 'START'}}</button>
+        <button mat-raised-button (click)="toMove()"> {{selectedSystem?.onMove ? 'STOP' : 'START'}}</button>
         <mat-form-field class="object-speed">
           <mat-select [(value)]="orbitSpeed" placeholder="Select a speed" (change)="setOrbitSpeed()">
             <mat-option *ngFor="let speed of orbitSpeedArray" [value]="speed.key">
@@ -73,14 +73,14 @@
         <mat-icon>{{drawer.opened ? 'chevron_left' : 'chevron_right'}}</mat-icon>
       </button>
       <div class="system-container" (click)="selectPlanet(null)"></div>
-      <div *ngIf="selectedSystem.centralStar"
+      <div *ngIf="selectedSystem?.centralStar"
            class="system-center-star"
            [ngStyle]="{'top': selectedSystem.centralStar.position.y + 'px', 'left': selectedSystem.centralStar.position.x + 'px', 'width': selectedSystem.centralStar.size.width + 'px', 'height': selectedSystem.centralStar.size.height + 'px'}"
            matTooltip="{{selectedSystem.centralStar.name}}"
            (click)="selectPlanet(selectedSystem.centralStar); drawer.open()">
         <img src="assets/{{selectedSystem.centralStar.imageName}}.png" alt="{{selectedSystem.centralStar.name}}">
       </div>
-      <div *ngFor="let planet of selectedSystem.centralStar?.satelliteObjects"
+      <div *ngFor="let planet of selectedSystem?.centralStar?.satelliteObjects"
            class="planet"
            [ngStyle]="{'top': planet.position.y + 'px', 'left': planet.position.x + 'px', 'width': planet.size.width + 'px', 'height': planet.size.height + 'px'}"
            matTooltip="{{planet.name}}"

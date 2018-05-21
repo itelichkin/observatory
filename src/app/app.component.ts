@@ -61,11 +61,14 @@ export class AppComponent {
 
   async reStoreSystem(systemId: string) {
     const system = await this.apiService.getSystemById(systemId);
-    await this.reStoreGalaxy(system.galaxyId);
-    this.selectedSystem = new SpaceSystemModel(system.id, system.name, system.weight, system.speed,
-      system.discoverer, system.position, system.size, system.imageName, this.selectedGalaxy, system.age,
-      system.starsAmount, system.planetsAmount, system.dwarfPlanetAmount, system.satellitesAmount,
-      system.smallBodyAmount, system.cometAmount);
+    if (system) {
+      await this.reStoreGalaxy(system.galaxyId);
+      this.selectedSystem = new SpaceSystemModel(system.id, system.name, system.weight, system.speed,
+        system.discoverer, system.position, system.size, system.imageName, this.selectedGalaxy, system.age,
+        system.starsAmount, system.planetsAmount, system.dwarfPlanetAmount, system.satellitesAmount,
+        system.smallBodyAmount, system.cometAmount);
+    }
   }
+
 
 }
