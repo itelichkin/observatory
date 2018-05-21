@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 4200;
 const app = express();
 
 // Serve only the static files form the dist directory
- app.use(express.static(`${__dirname}/dist/observatory`));
+ app.use(express.static(`${__dirname}/dist`));
 
 app.get('/*', function(req,res) {
 
