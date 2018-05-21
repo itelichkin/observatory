@@ -7,9 +7,9 @@
       <form [(formGroup)]="formSpaceObject">
         <mat-card>
           <mat-card-content fxLayoutWrap>
-            <mat-form-field fxFlex="100" class="full-width">
+            <mat-input-container fxFlex="100" class="full-width">
               <input matInput placeholder="Name" required formControlName="name">
-            </mat-form-field>
+            </mat-input-container>
             <div *ngIf="formSpaceObject?.get('name')?.invalid && (formSpaceObject?.get('name')?.touched || formSpaceObject?.get('name')?.dirty)" class="error-text"
                  fxFlex="100">
               {{formSpaceObject?.get('name')?.errors?.nameError}}
@@ -22,10 +22,10 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-form-field fxFlex="49">
+              <mat-input-container fxFlex="49">
                 <input matInput formControlName="discoverer"
                        placeholder="Discoverer">
-              </mat-form-field>
+              </mat-input-container>
             </div>
             <div fxFlex="100" fxLayoutAlign="space-between center" *ngIf="galaxyArray?.length">
               <mat-form-field fxFlex="49" *ngIf="galaxyArray?.length ">
@@ -45,18 +45,18 @@
             </div>
             <div fxFlex="100" fxLayoutAlign="space-between center"
                  *ngIf="(formSpaceObject.get('type').value === 'Planet' || formSpaceObject.get('type').value === 'Satellite') || !spaceObjectId">
-              <mat-form-field fxFlex="32">
+              <mat-input-container fxFlex="32">
                 <input matInput formControlName="parentRadius"
                        placeholder="Parent radius">
-              </mat-form-field>
-              <mat-form-field fxFlex="32">
+              </mat-input-container>
+              <mat-input-container fxFlex="32">
                 <input matInput formControlName="angle"
                        placeholder="Angle">
-              </mat-form-field>
-              <mat-form-field fxFlex="32">
+              </mat-input-container>
+              <mat-input-container fxFlex="32">
                 <input matInput formControlName="orbitSpeed"
                        placeholder="Orbit speed">
-              </mat-form-field>
+              </mat-input-container>
             </div>
           </mat-card-content>
         </mat-card>
