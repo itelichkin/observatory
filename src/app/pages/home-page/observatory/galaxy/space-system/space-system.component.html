@@ -12,7 +12,7 @@
       <div class="speed-action-button">
         <button mat-raised-button (click)="toMove()"> {{selectedSystem?.onMove ? 'STOP' : 'START'}}</button>
         <mat-form-field class="object-speed">
-          <mat-select [(value)]="orbitSpeed" placeholder="Select a speed" (change)="setOrbitSpeed()">
+          <mat-select [(value)]="orbitSpeed" placeholder="Select a speed" (selectionChange)="setOrbitSpeed()">
             <mat-option *ngFor="let speed of orbitSpeedArray" [value]="speed.key">
               {{ speed.value}}
             </mat-option>
@@ -59,7 +59,7 @@
       </div>
       <div>
         <mat-form-field class="object-speed">
-          <mat-select [(value)]="selectedObserver" placeholder="Put an observer" (change)="setPlanetToObserver()" [disabled]="!selectedSpaceObject">
+          <mat-select [(value)]="selectedObserver" placeholder="Put an observer" (selectionChange)="setPlanetToObserver()" [disabled]="!selectedSpaceObject">
             <mat-option *ngFor="let observer of observers" [value]="observer">
               {{ observer.name}}
             </mat-option>
