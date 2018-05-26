@@ -7,11 +7,13 @@
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/observatory",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
@@ -21,10 +23,10 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.scss",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeng/resources/themes/omega/theme.css",
-              "node_modules/font-awesome/css/font-awesome.min.css"
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "src/styles.scss"
             ],
             "scripts": []
           },
