@@ -1,8 +1,9 @@
+
+import {throttleTime} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/throttleTime';
+import {BehaviorSubject, Observable} from 'rxjs';
+
+
 
 
 const AUTH_HEADER = 'Authorization';
@@ -17,7 +18,7 @@ export class AuthTokenService {
 
   constructor() {
     this.storage = window.localStorage;
-    this._tokenChanged.throttleTime(2000).subscribe(token => {
+    this._tokenChanged.pipe(throttleTime(2000)).subscribe(token => {
       if (token) { this.persist(token); }
     });
   }
