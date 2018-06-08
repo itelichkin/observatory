@@ -5,7 +5,8 @@
 
 export const environment = {
   production: false,
-  apiHost: 'https://observatory-server.herokuapp.com'
+  //apiHost: 'https://observatory-server.herokuapp.com'
+  apiHost: 'https://observatory-api-ts.herokuapp.com'
   // apiHost: 'http://localhost:3000'
 
 };
