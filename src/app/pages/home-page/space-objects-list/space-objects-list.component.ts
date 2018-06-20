@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DropdownData, GlobalAstronomicalObjectType, ObserverType} from '../../../types/types';
 import {ApiService} from '../../../services/api.service';
 import {Router} from '@angular/router';
 import {DialogService} from '../../../services/dialog.service';
 import {ObserverModel} from '../../../models/observer.model';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-space-objects-list',
@@ -18,6 +19,13 @@ export class SpaceObjectsListComponent implements OnInit {
   observers: ObserverType[];
   observersDropdownData: DropdownData[];
 
+  displayedColumns: string[];
+  selectedObject: GlobalAstronomicalObjectType;
+  dataSource: MatTableDataSource<GlobalAstronomicalObjectType>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(private apiService: ApiService,
               private router: Router,
               private dialogService: DialogService) {
@@ -25,6 +33,7 @@ export class SpaceObjectsListComponent implements OnInit {
 
   async ngOnInit() {
     this.isDataLoading = true;
+    this.displayedColumns = ['actions', 'name', 'type', 'age', 'discoverer', 'observersUpdated'];
     try {
       this.title = 'List of space objects';
       this.spaceObjectData = await this.apiService.getAllSpaceObjects();
@@ -40,6 +49,9 @@ export class SpaceObjectsListComponent implements OnInit {
           obj['observersUpdated'] = this.updateObservers(obj.observers);
         }
       });
+      this.dataSource = new MatTableDataSource(this.spaceObjectData);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     } finally {
       this.isDataLoading = false;
     }
@@ -62,7 +74,7 @@ export class SpaceObjectsListComponent implements OnInit {
     this.router.navigate(['space-objects-list', 'new']);
   }
 
-  editSpaceObject(id: number, type: string) {
+  editSpaceObject(id: string, type: string) {
     this.router.navigate(['space-objects-list', type, id, 'edit']);
   }
 
@@ -93,5 +105,14 @@ export class SpaceObjectsListComponent implements OnInit {
       });
     });
     return result.join(', ');
+  }
+
+  selectRow(row) {
+    this.selectedObject = row;
+  }
+
+  editObject() {
+    console.log(this.selectedObject)
+    this.editSpaceObject(this.selectedObject.id, this.selectedObject.type);
   }
 }

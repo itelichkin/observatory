@@ -13,8 +13,29 @@
     text-align: right;
     margin-bottom: 10px;
   }
-  .actions {
-    text-align: center;
+  .table-container {
+    width: 100%;
+    table {
+      width: 100%;
+      .mat-column-actions {
+        width: 150px;
+        text-align: left;
+      }
+
+    }
+    .selected-row {
+      background: #3F51B5;
+      .mat-cell {
+        color: white;
+        mat-icon {
+          color: white;
+        }
+      }
+    }
+    .mat-row:not(.selected-row):hover {
+      background: #eee;
+      cursor: pointer;
+    }
   }
 
   .create-new-space-object, .edit-space-object, .delete-space-object {

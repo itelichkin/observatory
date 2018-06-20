@@ -6,20 +6,11 @@ import {
   MatListModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule,
   MatRadioModule, MatSelectModule, MatSidenavModule, MatSliderModule,
   MatSlideToggleModule, MatSnackBarModule, MatTabsModule, MatToolbarModule,
-  MatTooltipModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule
+  MatTooltipModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatTableModule, MatPaginatorModule,
+  MatSortModule
 } from '@angular/material';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatAutocompleteModule, MatButtonModule, MatButtonToggleModule,
-    MatCardModule, MatCheckboxModule, MatChipsModule, MatDialogModule,
-    MatGridListModule, MatIconModule, MatInputModule,
-    MatListModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule,
-    MatRadioModule, MatSelectModule, MatSidenavModule, MatSliderModule,
-    MatSlideToggleModule, MatSnackBarModule, MatTabsModule, MatToolbarModule,
-    MatTooltipModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule
-  ],
   exports: [
     MatAutocompleteModule, MatButtonModule, MatButtonToggleModule,
     MatCardModule, MatCheckboxModule, MatChipsModule, MatDialogModule,
@@ -27,7 +18,8 @@ import {
     MatListModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule,
     MatRadioModule, MatSelectModule, MatSidenavModule, MatSliderModule,
     MatSlideToggleModule, MatSnackBarModule, MatTabsModule, MatToolbarModule,
-    MatTooltipModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule
+    MatTooltipModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule,
+    MatTableModule, MatPaginatorModule, MatSortModule
   ]
 })
 export class ObservatoryMaterialModule { }
