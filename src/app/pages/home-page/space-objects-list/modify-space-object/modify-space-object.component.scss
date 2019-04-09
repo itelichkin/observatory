@@ -6,9 +6,15 @@
   h1 {
     margin-bottom: 20px;
   }
+
+  mat-card-content {
+    flex-wrap: wrap;
+  }
+
   .cancel-button {
     color: #F44336;
   }
+
   .submit-button {
     color: #4CAF50;
   }

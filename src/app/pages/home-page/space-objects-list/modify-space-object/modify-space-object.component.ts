@@ -57,7 +57,9 @@ export class ModifySpaceObjectComponent implements OnInit {
         this.createNewForm();
       } else {
         this.selectedSpaceObject = await this.apiService.getSpaceObjectById(this.spaceObjectType, this.spaceObjectId);
-        if (! this.selectedSpaceObject) return;
+        if (!this.selectedSpaceObject) {
+          return;
+        }
         this.createEditForm();
       }
       this.typeArray = ['Galaxy', 'System', 'Star', 'Planet'];
@@ -262,25 +264,29 @@ export class ModifySpaceObjectComponent implements OnInit {
     return (formControl: FormControl): { [key: string]: any } => {
       if (!formControl.value || formControl.value === '') {
         return {nameError: 'Type some name.'};
-      } else if (formControl.value ) {
+      } else if (formControl.value) {
         if (this.formSpaceObject && this.formSpaceObject.contains('type')) {
           let isExist = false;
           switch (this.formSpaceObject.get('type').value) {
             case 'Galaxy':
-              const galaxyArray = this.spaceObjectId ? this.galaxyArray.filter((x) => x.name !== this.selectedSpaceObject.name) : this.galaxyArray;
+              const galaxyArray = this.spaceObjectId ?
+                this.galaxyArray.filter((x) => x.name !== this.selectedSpaceObject.name) : this.galaxyArray;
               isExist = this.isNameExist(galaxyArray, formControl.value);
               break;
             case 'System':
-              const systemArray = this.spaceObjectId ? this.systemArray.filter((x) => x.name !== this.selectedSpaceObject.name) : this.systemArray;
+              const systemArray = this.spaceObjectId ?
+                this.systemArray.filter((x) => x.name !== this.selectedSpaceObject.name) : this.systemArray;
               isExist = this.isNameExist(systemArray, formControl.value);
               break;
             case 'Star':
-              const starArray = this.spaceObjectId ? this.starsArray.filter((x) => x.name !== this.selectedSpaceObject.name) : this.starsArray;
+              const starArray = this.spaceObjectId ?
+                this.starsArray.filter((x) => x.name !== this.selectedSpaceObject.name) : this.starsArray;
 
               isExist = this.isNameExist(starArray, formControl.value);
               break;
             case 'Planet':
-              const planetArray = this.spaceObjectId ? this.planetsArray.filter((x) => x.name !== this.selectedSpaceObject.name) : this.planetsArray;
+              const planetArray = this.spaceObjectId ?
+                this.planetsArray.filter((x) => x.name !== this.selectedSpaceObject.name) : this.planetsArray;
               isExist = this.isNameExist(planetArray, formControl.value);
               break;
           }
